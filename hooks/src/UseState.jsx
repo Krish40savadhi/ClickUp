@@ -3,7 +3,8 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
-function App() {
+function UseState() {     
+  //  State Hooks
   const [count, setCount] = useState(0);
   const [freq, setFreq] = useState(0);
   const [radi, setRadi] = useState(0);
@@ -142,4 +143,4 @@ function App() {
   );
 }
 
-export default App;
+export default UseState;
