@@ -9,18 +9,17 @@ import NestedConext  from './NestedContext.jsx'
 import DefaultContext from './DefaultContext.jsx'
 import WithUseReducer from './WithUseReducer.jsx'
 import WithCustomHook from './WithCustomHook.jsx'
-
+import Memoization from './Memoization.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* <App /> */}
     {/* <BasicContext /> */}
     {/* <DynamicValues/> */}
     {/* <UpdateContext/> */}
     {/* <NestedConext/> */}
     {/* <DefaultContext/> */}
     {/* <WithUseReducer/> */}
-    <WithCustomHook/>
-    
+    {/* <WithCustomHook/> */}
+    <Memoization/>
   </StrictMode>,
 )
