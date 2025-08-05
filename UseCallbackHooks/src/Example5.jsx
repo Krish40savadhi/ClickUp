@@ -2,8 +2,8 @@ import { useCallback, useEffect } from "react";
 
 function throttle(func,limit) {
     let lastCall=0;
-    return (...args) => {
-        const now = Date.now();
+    return (...args) => {           //returning a function with parameters like(...args)=>{}
+        const now = Date.now();         
         if(now - lastCall >=limit){
             lastCall = now;
             func(...args);
@@ -27,7 +27,7 @@ export default function Throttling(){
 
     return(
         <div style={{height: '200vh'}}>
-            Scroll Me!!! and check the console
+            Scroll Me!!! while checking the console.
         </div>
     )
 }

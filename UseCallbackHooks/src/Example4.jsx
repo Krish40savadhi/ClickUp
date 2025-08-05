@@ -2,7 +2,7 @@ import { useState,useCallback } from "react";
 
 function debounce(fn, delay) {
   let timer;
-  return (...args) => {
+  return (...args) => {          //returning a function with parameters like(...args)=>{}
     clearTimeout(timer);
     timer = setTimeout(() => fn(...args), delay);
   };
