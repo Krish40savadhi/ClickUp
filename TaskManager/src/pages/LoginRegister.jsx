@@ -10,7 +10,6 @@ export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-
     const handleCredentialsSubmit = (e) => {
     e.preventDefault();
     // Generating a random 6-digit OTP
@@ -29,13 +28,6 @@ export default function Login() {
       alert('Invalid OTP');
     }
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    login(credentials);
-    navigate('/dashboard');
-  };
-
   
   if (step === 'otp') {
     return (

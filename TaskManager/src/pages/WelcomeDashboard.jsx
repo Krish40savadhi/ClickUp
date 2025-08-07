@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthenticationContext';
 
 export default function WelcomeDashboard() {
   const { user } = useAuth();
-//   const { state } = useTasks();
+
   const userName = user?.email ? user.email.split('@')[0] : '';
 
   return (
