@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import Login from "./pages/LoginRegister";
 import './App.css'
 import DashboardLayout from "./pages/Dashboard";
+import WelcomeDashboard from "./pages/WelcomeDashboard";
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
                 <DashboardLayout/>
                 </ProtectedRoute>
             }>
-              <Route index element={<div>Welcome to Dashboard</div>}/>
+              <Route index element={<WelcomeDashboard/>}/>
               <Route path="tasks" element={
                 <TaskProvider>
                 <Boards/>

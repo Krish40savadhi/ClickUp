@@ -1,10 +1,10 @@
-import { useState} from 'react';
+import { useState,useEffect} from 'react';
 import { useAuth } from '../context/AuthenticationContext';
 
 export default function Profile() {
     const { user,setUser } = useAuth();
     const [profile, setProfile] = useState({
-        fullName: user?.fullName || '',
+        fullName: user?.email ? user.email.split('@')[0] : '' || '',
         email: user?.email || '',
         bio: user?.bio ||'',
         phone: user?.phone||''
@@ -27,6 +27,7 @@ export default function Profile() {
                         value={profile.fullName}
                         onChange={(e) => setProfile({...profile, fullName: e.target.value})}
                         className="w-full p-2 border rounded"
+                        placeholder='Enter your full name'
                     />
                 </div>
                 <div>
@@ -36,6 +37,7 @@ export default function Profile() {
                         value={profile.email}
                         readOnly
                         className="w-full p-2 border rounded bg-gray-100"
+                        placeholder='Enter your email'
                     />
                 </div>
                 <div>
@@ -45,6 +47,7 @@ export default function Profile() {
                         onChange={(e) => setProfile({...profile, bio: e.target.value})}
                         className="w-full p-2 border rounded"
                         rows="4"
+                        placeholder='Tell us about yourself'
                     />
                 </div>
                 <div>
@@ -54,6 +57,7 @@ export default function Profile() {
                         value={profile.phone}
                         onChange={(e) => setProfile({...profile, phone: e.target.value})}
                         className="w-full p-2 border rounded"
+                        placeholder='Enter your phone number'
                     />
                 </div>
                 <button 

@@ -6,6 +6,14 @@ import { formatDistanceToNow } from 'date-fns';
 function TaskCard({task,onEdit}){
     
     const {dispatch} = useTasks();
+    const handleDragStart = (e)=>{
+        e.dataTransfer.setData('taskId',task.id.toString());
+        e.target.classList.add('opacity-50');
+    }
+
+    const handleDragEnd = useCallback((e) => {
+        e.target.classList.remove('opacity-50');
+    }, []);
 
     const handleDelete = useCallback(()=>{
         dispatch({type:"DELETE_TASK",payload:task.id});
@@ -14,7 +22,11 @@ function TaskCard({task,onEdit}){
     const daysleft=task.dueDate ? formatDistanceToNow(new Date(task.dueDate),{addSuffix:true}) : 'No Due Date';
 
     return(
-        <div className="p-3 bg-white shadow rounded mb-2 flex justify-between">
+        <div className="p-3 bg-white shadow rounded mb-2 flex justify-between"
+        draggable
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        >
             <div>
                 <h4 className="font-bold">{task.title}</h4>
                 <p>{task.description}</p>
