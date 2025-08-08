@@ -44,10 +44,5 @@ TaskCard.propTypes={
     task: PropTypes.object.isRequired,
     onEdit:PropTypes.func.isRequired
 }
-
-// TaskCard.defaultProps = {
-//     task:{title:"Untitled" , description:"No description"},
-// };
-
 export default TaskCard;
 
