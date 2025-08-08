@@ -31,6 +31,12 @@ export default function DashboardLayout() {
                 >
                   Profile
                 </Link>
+                 <Link 
+                  to="/dashboard/game" 
+                  className="px-3 py-2 rounded-md hover:bg-gray-100 text-gray-700"
+                >
+                  Games
+                </Link>
               </div>
             </div>
             <div className="flex items-center space-x-4">

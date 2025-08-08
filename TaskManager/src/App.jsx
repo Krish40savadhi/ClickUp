@@ -8,12 +8,13 @@ import Login from "./pages/LoginRegister";
 import './App.css'
 import DashboardLayout from "./pages/Dashboard";
 import WelcomeDashboard from "./pages/WelcomeDashboard";
-
+import ChessGame from "./pages/GameChess";
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+      <TaskProvider>
         <Routes>
             <Route path="/" element={<Navigate to="/dashboard" replace/>}/>
             <Route path="/login" element={<Login/>}/>
@@ -26,12 +27,17 @@ function App() {
             }>
               <Route index element={<WelcomeDashboard/>}/>
               <Route path="tasks" element={
-                <TaskProvider>
-                <Boards/>
-                  </TaskProvider>}/>
+                <Boards/>}/>
               <Route path="profile" element={<Profile/>}/>
+                         <Route path="/dashboard/game" element={
+              <ProtectedRoute>
+                <ChessGame />
+              </ProtectedRoute>
+            }/>
            </Route>
+
           </Routes>
+            </TaskProvider>
       </BrowserRouter>
     </AuthProvider>
 

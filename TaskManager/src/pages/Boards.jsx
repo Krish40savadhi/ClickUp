@@ -46,6 +46,17 @@ export default function Boards() {
   return (
     <div className="p-5">
         <TaskStats/>
+          <div className="mt-4 mb-6">
+        <button
+          onClick={() => {
+            setEditing(null);
+            setShowModal(true);
+          }}
+          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md transition"
+        >
+          + Add Task
+        </button>
+      </div>
     <div className="flex gap-5">
       <Column
         title={'Todo'}
@@ -71,16 +82,6 @@ export default function Boards() {
           setShowModal(true)
         },[])}
         />
-      <button
-        onClick={() => {
-            setEditing(null)
-            setShowModal(true)
-        }}
-        className="fixed bottom-5 right-5 bg-blue-500 text-white p-3 rounded-full"
-        >
-        + Add Task
-      </button>
-
       {showModal && (
           <Modal onClose={() => setShowModal(false)}>
           <TaskForm ref={formref} onSubmit={handleSubmit} task={editing} />

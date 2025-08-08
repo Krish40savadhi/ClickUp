@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useTasks } from '../context/TaskContent';
 import { useAuth } from '../context/AuthenticationContext';
 
 export default function WelcomeDashboard() {
@@ -41,6 +40,20 @@ export default function WelcomeDashboard() {
           <p className="text-gray-600">
             Manage your personal information and preferences
           </p>
+        </Link>
+      </div>
+       <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">
+          🎯 Want to play a game?
+        </h2>
+        <p className="text-gray-600 mb-4">
+          Challenge a friend to a classic game of chess right here!
+        </p>
+        <Link 
+          to="/dashboard/game"
+          className="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Play Chess
         </Link>
       </div>
     </div>

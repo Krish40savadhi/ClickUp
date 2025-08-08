@@ -1,0 +1,236 @@
+
+/* Container and row: force columns to stretch to same height */
+.chess-container {
+  background: #3575b5;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* ensure ant row columns stretch to same height */
+.chess-row {
+  align-items: stretch;
+}
+
+/* make each Col a vertical flex container so children can grow */
+.chess-container .ant-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* center column wrapper so board sits centered and does not overflow */
+.chess-board-wrapper {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+}
+
+/* board fits to its column width; aspect-ratio keeps it square */
+.chess-board {
+  width: 100%;
+  max-width: 640px;      /* limit the max board size */
+  aspect-ratio: 1 / 1;   /* always square */
+  border: 8px solid #34495e;
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+/* each square */
+.chess-square {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.2rem;
+  position: relative;
+  transition: all 0.15s;
+}
+
+.square-light { background-color: #f0d9b5; }
+.square-dark  { background-color: #b58863; }
+
+/* piece glyph style & force a non-colour-emoji font first */
+.piece {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s;
+  z-index: 2;
+  font-family: "Segoe UI Symbol", "DejaVu Sans", "Noto Sans Symbols2", "Symbola", serif;
+  line-height: 1;
+}
+
+/* hover effect */
+.piece:hover { transform: scale(1.06); }
+
+/* white/black visuals */
+.white-piece {
+  color: #ffffff;
+  text-shadow:
+    0 0 1px rgba(0,0,0,0.8),
+    0 0 3px rgba(0,0,0,0.6);
+}
+.black-piece {
+  /* prefer dark neutral color instead of relying on emoji color */
+  color: #111;
+  text-shadow:
+    0 0 1px rgba(255,255,255,0.6);
+}
+
+/* selected / legal move visuals */
+.selected { background-color: rgba(255,255,0,0.20) !important; }
+.legal-move::before {
+  content:'';
+  position:absolute;
+  width:22%;
+  height:22%;
+  border-radius:50%;
+  background-color: rgba(0,200,0,0.25);
+  z-index:1;
+}
+
+.player-card { 
+  background: #ffffff; /* white for clarity */
+  color: #333;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  margin-bottom: 12px;
+  min-height: 130px; /* slightly taller for better spacing */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Active player border */
+.player-card .active {
+  border: 3px solid #3498db;
+    
+}
+
+/* Inner layout: vertical gap with centered content */
+.player-card-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.player-card .ant-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.player-card .ant-badge-count {
+  background: #3498db;
+  color: white;
+  font-weight: bold;
+  min-width: 28px;
+  height: 28px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+/* captured pieces area */
+.captured-block {  width: 100%;
+  text-align: center;
+  margin-top: 4px; }
+.captured-title { font-size:1rem; margin-bottom:6px; color:#666; }
+.captured-pieces { display:flex; gap: 6px; justify-content:center; flex-wrap:wrap; min-height:28px; }
+.captured-piece-icon { font-size:1.7rem; opacity:0.95; display:inline-block; padding:2px 4px; }
+.captured-placeholder { color: #bbb ; }
+.captured-pieces .black {
+  color: #262421; /* same black as board pieces */
+  fill: #262421; /* for SVGs */
+}
+.captured-pieces .white {
+  color: #f0d9b5; /* optional if white pieces are text/SVG */
+}
+/* score label (Badge is handled by Ant) */
+.score-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #555;
+}
+.score-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+
+/* move-history grows to fill remaining column height */
+.move-history {
+  max-height: 200px; /* you can adjust this */
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ccc; /* optional - for visibility */
+  border-radius: 3px; /* optional */
+  background: #f9f9f9; /* optional */
+}
+
+/* Optional: make scrollbar look nicer */
+.move-history::-webkit-scrollbar {
+  width: 6px;
+}
+
+.move-history::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 3px;
+}
+
+/* coordinates */
+.coordinate { position:absolute; font-size:0.8rem; color:#666; pointer-events:none; }
+.coordinate-col { bottom: 2px; right: 4px; }
+.coordinate-row { top: 2px; left: 4px; }
+
+/* small utility */
+.muted { color: rgba(255,255,255,0.55); }
+
+.win-chance {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.splash-container {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.splash-card {
+  text-align: center;
+  background: white;
+  padding: 28px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  max-width: 720px;
+}
+
+.splash-card h2 {
+  margin: 0 0 12px;
+}
+
+.splash-card p {
+  margin: 0 0 20px;
+  color: #555;
+}
+
+.splash-start-btn {
+  padding: 10px 36px !important;
+  font-size: 18px !important;
+}
