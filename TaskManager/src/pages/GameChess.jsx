@@ -60,41 +60,41 @@ export default function ChessGame() {
                 </div>
             )}
 
-            <Modal 
-                open={showModal}
-                title="Start New Chess Game"
-                footer={null}
-                closable={false}
-                maskClosable={false}
-                onCancel={handleCancelModal}
-            >
-                <div className="space-y-4">
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">
-                            Player 1 (White)
-                        </label>
-                        <Input
-                            ref={player1InputRef}
-                            value={players.player1}
-                            onChange={e => setPlayers(prev => ({...prev, player1: e.target.value}))}
-                            placeholder="Enter player 1 name"
-                        />
+                <Modal 
+                    open={showModal}
+                    title="Start New Chess Game"
+                    footer={null}
+                    closable={true}
+                    maskClosable={false}
+                    onCancel={handleCancelModal}
+                >
+                    <div className="space-y-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">
+                                Player 1 (White)
+                            </label>
+                            <Input
+                                ref={player1InputRef}
+                                value={players.player1}
+                                onChange={e => setPlayers(prev => ({...prev, player1: e.target.value}))}
+                                placeholder="Enter player 1 name"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">
+                                Player 2 (Black)
+                            </label>
+                            <Input
+                                value={players.player2}
+                                onChange={e => setPlayers(prev => ({...prev, player2: e.target.value}))}
+                                placeholder="Enter player 2 name"
+                            />
+                        </div>
+                        <Button type="primary" block onClick={handleStartGame}>
+                            Start Game
+                        </Button>
                     </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">
-                            Player 2 (Black)
-                        </label>
-                        <Input
-                            value={players.player2}
-                            onChange={e => setPlayers(prev => ({...prev, player2: e.target.value}))}
-                            placeholder="Enter player 2 name"
-                        />
-                    </div>
-                    <Button type="primary" block onClick={handleStartGame}>
-                        Start Game
-                    </Button>
-                </div>
-            </Modal>
+                </Modal>
 
             {gameStarted && (
                 <ChessBoard 
