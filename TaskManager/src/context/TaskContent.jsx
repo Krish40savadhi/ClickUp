@@ -22,7 +22,6 @@ function taskReducer(state, action) {
 
 export function TaskProvider({children}){
     const [state,dispatch]=useReducer(taskReducer,initialState);
-    console.log("tasks", state);
     
     useEffect(()=>{
         localStorage.setItem('tasks',JSON.stringify(state.tasks));

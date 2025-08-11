@@ -13,6 +13,7 @@ export default function ChessGame() {
     const [showModal, setShowModal] = useState(false);
     const player1InputRef = useRef(null);
     const [game] = useState(new Chess());
+    //(chess.js mutates game state)
     const [position, setPosition] = useState(game.fen());
     
     // Focus on first input when modal opens

@@ -1,4 +1,4 @@
-import { useState,useEffect} from 'react';
+import { useState} from 'react';
 import { useAuth } from '../context/AuthenticationContext';
 
 export default function Profile() {

@@ -26,10 +26,11 @@ function App() {
                 </ProtectedRoute>
             }>
               <Route index element={<WelcomeDashboard/>}/>
+              {/* "This route has no path of its own, it’s the default child." */}
               <Route path="tasks" element={
                 <Boards/>}/>
               <Route path="profile" element={<Profile/>}/>
-                         <Route path="/dashboard/game" element={
+              <Route path="/dashboard/game" element={ 
               <ProtectedRoute>
                 <ChessGame />
               </ProtectedRoute>

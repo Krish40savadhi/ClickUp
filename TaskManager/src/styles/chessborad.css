@@ -9,7 +9,7 @@
 
 /* ensure ant row columns stretch to same height */
 .chess-row {
-  align-items: stretch;
+  flex-wrap: wrap;
 }
 
 /* make each Col a vertical flex container so children can grow */
@@ -233,4 +233,20 @@
 .splash-start-btn {
   padding: 10px 36px !important;
   font-size: 18px !important;
+}
+
+.promo-btn {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.promo-btn:hover { background:#f5f5f5; }
+.controls-row {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
 }
