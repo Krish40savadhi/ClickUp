@@ -5,7 +5,7 @@ export default function Modal({children , onClose}){
         <div className="fixed inset-0 bg-white/50 bg-opacity-50 backdrop-blur-sm flex justify-center items-center">
             <div >
                 {children}
-                {/* <button onClick={onClose} className="mt-2 text-red-500">Close</button> */}
+                <button onClick={onClose} className="mt-2 text-red-500">Close</button>
             </div>
         </div>,document.getElementById("modal-root")
      );   
