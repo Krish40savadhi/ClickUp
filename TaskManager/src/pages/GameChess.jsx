@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Modal, Input, Button} from 'antd';
 import { Chess } from 'chess.js';
 import ChessBoard from '../components/ChessBoard';
-
+import { Navigate } from 'react-router-dom';
 export default function ChessGame() {
     const [players, setPlayers] = useState({
         player1: '',
@@ -103,6 +103,7 @@ export default function ChessGame() {
                     game={game}
                     position={position}
                     setPosition={setPosition}
+                   onExit={()=>{setGameStarted(false);setShowSplash(true);setPlayers("")}}
                 />
             )}
         </div>

@@ -44,19 +44,8 @@ export default function ChessBoard({
   // Unicode piece glyphs (consistent mapping)
   const UNICODE = useMemo(
     () => ({
-      p: '♟',
-      n: '♞',
-      b: '♝',
-      r: '♜',
-      q: '♛',
-      k: '♚',
-      P: '♙',
-      N: '♘',
-      B: '♗',
-      R: '♖',
-      Q: '♕',
-      K: '♔',
-    }),
+      p: '♟',n: '♞',b: '♝',r: '♜',q: '♛',k: '♚',
+      P: '♙',N: '♘',B: '♗',R: '♖',Q: '♕',K: '♔',}),
     [],
   )
 
@@ -271,7 +260,9 @@ export default function ChessBoard({
 
   // Exit board: call onExit if passed, else navigate back
   const handleExit = () => {
-    if (onExit && typeof onExit === 'function') return onExit()
+    handleReset();
+       if (onExit && typeof onExit === 'function') return onExit()
+
     navigate("/dashboard")
   }
 
