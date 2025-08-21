@@ -8,7 +8,10 @@ export default function ProjectsPage() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+  const user = localStorage.getItem('auth');
+  const userRole = JSON.parse(user).user.role;
+  const userDetails = JSON.parse(user);
+  console.log(userDetails.user.id)
   useEffect(() => {
     const load = async () => {
       try {
@@ -17,8 +20,36 @@ export default function ProjectsPage() {
           api.get("/projects"),
           api.get("/tasks"),
         ]);
-        setProjects(projRes.data);
-        setTasks(taskRes.data);
+        if(userRole==='admin'){
+          setProjects(projRes.data);
+          setTasks(taskRes.data);
+        }else{
+           const userId = userDetails?.user?.id;
+
+  // helper: returns true if `field` contains userId
+  const includesUser = (field) => {
+    if (field == null) return false; // null/undefined guard
+    // normalize to string for reliable comparison
+    const u = String(userId);
+
+    if (Array.isArray(field)) {
+      return field.some((id) => String(id) === u);
+    }
+    // scalar (number/string)
+    return String(field) === u;
+  };
+
+  const employeeProjects = (projRes.data || []).filter((p) =>
+    includesUser(p.employeeIds)
+  );
+
+  const employeeTasks = (taskRes.data || []).filter((t) =>
+    includesUser(t.assigneeId)
+  );
+
+          setProjects(employeeProjects);
+          setTasks(employeeTasks);
+        }
       } catch (err) {
         setError(err.message || "Failed to load projects");
       } finally {
@@ -41,14 +72,13 @@ export default function ProjectsPage() {
     <div className="p-6">
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-bold">Projects</h2>
-        <Link
+      {userRole==='admin' &&  <Link
           to="/projects/new"
           className="rounded-lg bg-gray-200 text-black font-bold text-sm px-4 py-2 hover:bg-gray-400"
         >
           New Project
-        </Link>
+        </Link>}
       </div>
-
       <Table
         columns={["Project Name", "Description", "Tasks","Actions"]}
         data={projects}

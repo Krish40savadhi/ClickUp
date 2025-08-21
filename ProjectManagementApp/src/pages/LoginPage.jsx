@@ -19,7 +19,7 @@ const [serverError, setServerError] = useState("");
     setServerError("");
     try {
       const { user } = await login(email, password);
-      navigate(user.role === "admin" ? "/admin" : "/employee", { replace: true });
+      navigate(user.role === "admin" ? "/admin" : "/projects", { replace: true });
     } catch (e) {
       setServerError(e.message || "Login failed");
     }

@@ -45,60 +45,122 @@
       "role": "admin"
     }
   ],
-"projects": [
+  "projects": [
+    {
+      "id": "1",
+      "name": "Website Revamp",
+      "description": "Marketing site redesign",
+      "employeeIds": [
+        2,
+        3
+      ],
+      "createdById": 1
+    },
+    {
+      "id": "2",
+      "name": "Internal Tools",
+      "description": "Admin dashboards",
+      "employeeIds": [
+        2
+      ],
+      "createdById": 1
+    },
+    {
+      "id": "3",
+      "name": "E-Commerce Site",
+      "description": "Develop Amazon-like site",
+      "employeeIds": [
+        4,
+        5
+      ],
+      "createdById": 1
+    },
   {
-    "id": "1",
-    "name": "Website Revamp",
-    "description": "Marketing site redesign",
-    "employeeIds": [2, 3],
-    "createdById": 1
+    "id": "6",
+    "name": "Project Phoenix",
+    "description": "Develop a new customer relationship management system.",
+    "employeeIds": [2, 3, 4],
+    "createdById": 1,
+    "taskCount": 12
   },
   {
-    "id": "2",
-    "name": "Internal Tools",
-    "description": "Admin dashboards",
-    "employeeIds": [2],
-    "createdById": 1
+    "id": "7",
+    "name": "Project Aurora",
+    "description": "Design and implement a new user interface for the mobile app.",
+    "employeeIds": [5, 6],
+    "createdById": 2,
+    "taskCount": 8
   },
   {
-    "id": "3",
-    "name": "E-Commerce Site",
-    "description": "Develop Amazon-like site",
-    "employeeIds": [4, 5],
-    "createdById": 1
+    "id": "8",
+    "name": "Project Nebula",
+    "description": "Create a data analytics dashboard for sales performance tracking.",
+    "employeeIds": [7, 8, 9],
+    "createdById": 3,
+    "taskCount": 15
+  },
+  {
+    "id": "4",
+    "name": "Project Horizon",
+    "description": "Develop a new marketing campaign for the upcoming product launch.",
+    "employeeIds": [2, 10],
+    "createdById": 1,
+    "taskCount": 10
+  },
+  {
+    "id": "5",
+    "name": "Project Zenith",
+    "description": "Optimize the existing e-commerce platform for better performance.",
+    "employeeIds": [4, 6],
+    "createdById": 4,
+    "taskCount": 7
   }
 ],
-"tasks": [
-  {
-    "id": "1",
-    "projectId": "1",
-    "title": "Build Login UI",
-    "description": "Implement design in React",
-    "assigneeId": 2,
-    "createdById": 1,
-    "priority": "High",
-    "status": "In Progress"
-  },
-  {
-    "id": "2",
-    "projectId": "1",
-    "title": "Auth Context",
-    "description": "Context with localStorage",
-    "assigneeId": 3,
-    "createdById": 1,
-    "priority": "Medium",
-    "status": "To Do"
-  },
-  {
-    "id": "3",
-    "projectId": "3",
-    "title": "Amazon Website",
-    "description": "Products page and payment integration",
-    "assigneeId": [4, 5],
-    "createdById": 1,
-    "priority": "High",
-    "status": "Pending"
-  }
-]
-
+  "tasks": [
+    {
+      "id": "1",
+      "projectId": "1",
+      "title": "Build Login UI",
+      "description": "Implement design in React",
+      "assigneeId": 2,
+      "createdById": 1,
+      "priority": "High",
+      "status": "In Progress"
+    },
+    {
+      "id": "2",
+      "projectId": "1",
+      "title": "Auth Context",
+      "description": "Context with localStorage",
+      "assigneeId": 3,
+      "createdById": 1,
+      "priority": "Medium",
+      "status": "To Do"
+    },
+    {
+      "id": "3",
+      "projectId": "3",
+      "title": "Amazon Website",
+      "description": "Products page and payment integration",
+      "assigneeId": [
+        4,
+        5
+      ],
+      "createdById": 1,
+      "priority": "High",
+      "status": "Pending"
+    },
+    {
+      "id": "c0e0",
+      "name": "Promplyzer",
+      "description": "To develop a ai agent that can review a promt in the best possible way.",
+      "assigneeId": [
+        "1",
+        "2"
+      ],
+      "status": "",
+      "priority": "medium",
+      "duedate": ""
+    }
+  ]
 }

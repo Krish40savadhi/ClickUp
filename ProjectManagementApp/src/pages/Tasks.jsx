@@ -153,7 +153,7 @@ export default function Tasks() {
                   placeholder="Select Status"
                   className="w-full"
                 >
-                  <Option value="todo">To DO</Option>
+                  <Option value="todo">To Do</Option>
                   <Option value="in-progress">In Progress</Option>
                   <Option value="done">Done</Option>
                 </Select>
@@ -217,7 +217,7 @@ export default function Tasks() {
             disabled={isSubmitting}
             className="py-2.5 px-4 rounded-2xl bg-gray-200 text-black font-bold text-sm disabled:opacity-60"
           >
-            {isSubmitting ? 'Adding...' : 'Add Employee'}
+            {isSubmitting ? 'Adding...' : 'Add Task'}
           </button>
         </div>
       </form>

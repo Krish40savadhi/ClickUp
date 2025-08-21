@@ -7,7 +7,7 @@ export default function Table({ columns, data, renderRow }) {
             {columns.map((col) => (
               <th
                 key={col}
-                className="text-center text-xs font-semibold uppercase tracking-wide text-gray-600 px-4 py-3"
+                className="text-center text-sm font-semibold uppercase tracking-wide text-black px-4 py-3"
               >
                 {col}
               </th>

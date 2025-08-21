@@ -76,8 +76,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <Layout>
-      <div className="space-y-20 ">
+      <div >
         <div className="grid grid-cols-2 md:grid-clos-2 gap-6 ">
           <StatCard label="Total Projects" value={projects.length} />
           <StatCard label="Total Employees" value={employees.length} />
@@ -87,7 +86,7 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold">Employees</h2>
             <Link
-              to="/employees/new"
+              to="/employees"
               className="rounded-lg bg-gray-200 text-black font-bold text-sm px-4 py-2 hover:bg-gray-400"
             >
               Add New Employee
@@ -135,7 +134,6 @@ export default function AdminDashboard() {
           />
         </section>
       </div>
-    </Layout>
   )
 }
 

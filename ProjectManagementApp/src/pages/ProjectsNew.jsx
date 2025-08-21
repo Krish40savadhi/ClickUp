@@ -67,7 +67,6 @@ export default function ProjectsNew() {
   }
 
   return (
-    <Layout>
       <div className="min-h-[735px]  flex justify-center items-start">
         <div
           className="w-[960px] max-w-[960px] h-[695px] bg-white rounded-2xl pt-[20px] pb-[20px] ml-[160px] mr-[160px]"
@@ -188,6 +187,5 @@ export default function ProjectsNew() {
           </div>
         </div>
       </div>
-    </Layout>
   )
 }
