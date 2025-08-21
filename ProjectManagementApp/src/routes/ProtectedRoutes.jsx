@@ -1,7 +1,5 @@
-import { useAuth } from "../hooks/Authcontext";
+import { useAuth } from "../context/Authcontext";
 import { Navigate } from "react-router-dom";
-
-
 
 export default function ProtectedRoutes(children,roles){
     const user = useAuth();

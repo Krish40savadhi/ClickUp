@@ -1,7 +1,9 @@
-import { useForm } from 'react-hook-form'
-import { useAuth } from '../hooks/Authcontext'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form';
+import { useAuth } from '../context/Authcontext';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Layout from "../components/Layout.jsx";
+
 
 export default function Login() {
   const {
@@ -25,15 +27,8 @@ const [serverError, setServerError] = useState("");
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <a href="/" className="absolute left-6 top-5 flex items-center gap-2">
-        <img
-          src="https://cdn.prod.website-files.com/66c5b29662fc6ac27b54a965/66c5d861d60462d91e3e1111_sarvadhi-logo.svg"
-          alt="Sarvadhi"
-          className="h-10 w-10"
-        />
-        <span className="font-semibold">Sarvadhi</span>
-      </a>
+    <div className="min-h-screen flex items-center justify-center bg-white-50">
+     <Layout/>
       <div className="w-full max-w-md bg-white rounded-2xl shadow-sm p-8">
         <h1 className="text-2xl font-semibold text-center">Welcome Back!!</h1>
         <p className="text-sm text-center text-gray-500 mt-1">

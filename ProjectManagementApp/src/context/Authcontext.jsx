@@ -6,7 +6,7 @@ const AuthContext = createContext();
 const initialize={
     user:null,
     token:null,
-    status:idle
+    status:"idle"
 };
 
 function reducer(state,action){
@@ -27,7 +27,22 @@ function reducer(state,action){
 
 export default function AuthProvider({children}){
         
-    const [state,dispatch] = useReducer(reducer,initialize);
+    const [state,dispatch] = useReducer(reducer,initialize, (initial) => {
+    const saved = localStorage.getItem("auth");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return {
+          ...initial,
+          ...parsed,
+          status: parsed.user ? "authenticated" : "idle"
+        };
+      } catch {
+        return initial;
+      }
+    }
+    return initial;
+  });
     
     useEffect(()=>{
         localStorage.setItem("auth",JSON.stringify({user:state.user , token:state.token}));
@@ -36,7 +51,7 @@ export default function AuthProvider({children}){
     const login =async(email,password)=>{
         dispatch({type:"LOGIN_START"});
         const res = await loginRequest(email,password);
-        dispatch({type:"LOGIN_SUCCESS"});
+        dispatch({type:"LOGIN_SUCCESS",payload: res });
         return res;
     }
 

@@ -7,7 +7,7 @@ const generateToken = () =>
     : Math.random().toString(36).slice(2));
 
 export async function loginRequest(email,password){
-        const {data} = await api.get("/employeeds",{params:{email,password}});
+        const {data} = await api.get("/employees",{params:{email,password}});
         if (data.length !==1){
             throw new Error("Invalid Email or Password");
         }

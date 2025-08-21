@@ -1,7 +1,7 @@
 {
   "employees": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Admin User",
       "email": "admin@sarvadhi.com",
       "password": "admin123",
@@ -10,7 +10,7 @@
       "role": "admin"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Alice Sharma",
       "email": "alice@sarvadhi.com",
       "password": "alice123",
@@ -19,51 +19,86 @@
       "role": "employee"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Rohit Patel",
       "email": "rohit@sarvadhi.com",
       "password": "rohit123",
       "department": "Engineering",
       "designation": "Backend Dev",
       "role": "employee"
-    }
-  ],
-  "projects": [
-    {
-      "id": 1,
-      "name": "Website Revamp",
-      "description": "Marketing site redesign",
-      "employeeIds": [2, 3],          
-      "createdById": 1                 
     },
     {
-      "id": 2,
-      "name": "Internal Tools",
-      "description": "Admin dashboards",
-      "employeeIds": [2],
-      "createdById": 1
-    }
-  ],
-  "tasks": [
-    {
-      "id": 1,
-      "projectId": 1,
-      "title": "Build Login UI",
-      "description": "Implement design in React",
-      "assigneeId": 2,
-      "createdById": 1,
-      "priority": "High",
-      "status": "In Progress"
+      "id": "4",
+      "name": "Krish Patel",
+      "email": "Krish@sarvadhi.com",
+      "password": "123456789",
+      "department": "Engineering",
+      "designation": "Backend Dev",
+      "role": "admin"
     },
     {
-      "id": 2,
-      "projectId": 1,
-      "title": "Auth Context",
-      "description": "Context with localStorage",
-      "assigneeId": 3,
-      "createdById": 1,
-      "priority": "Medium",
-      "status": "To Do"
+      "id": "8233",
+      "name": "Pavan",
+      "email": "pavan@sarvadhi.com",
+      "department": "React.JS",
+      "designation": "Senior Developer",
+      "role": "admin"
     }
-  ]
+  ],
+"projects": [
+  {
+    "id": "1",
+    "name": "Website Revamp",
+    "description": "Marketing site redesign",
+    "employeeIds": [2, 3],
+    "createdById": 1
+  },
+  {
+    "id": "2",
+    "name": "Internal Tools",
+    "description": "Admin dashboards",
+    "employeeIds": [2],
+    "createdById": 1
+  },
+  {
+    "id": "3",
+    "name": "E-Commerce Site",
+    "description": "Develop Amazon-like site",
+    "employeeIds": [4, 5],
+    "createdById": 1
+  }
+],
+"tasks": [
+  {
+    "id": "1",
+    "projectId": "1",
+    "title": "Build Login UI",
+    "description": "Implement design in React",
+    "assigneeId": 2,
+    "createdById": 1,
+    "priority": "High",
+    "status": "In Progress"
+  },
+  {
+    "id": "2",
+    "projectId": "1",
+    "title": "Auth Context",
+    "description": "Context with localStorage",
+    "assigneeId": 3,
+    "createdById": 1,
+    "priority": "Medium",
+    "status": "To Do"
+  },
+  {
+    "id": "3",
+    "projectId": "3",
+    "title": "Amazon Website",
+    "description": "Products page and payment integration",
+    "assigneeId": [4, 5],
+    "createdById": 1,
+    "priority": "High",
+    "status": "Pending"
+  }
+]
+
 }
