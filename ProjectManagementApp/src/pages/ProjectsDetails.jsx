@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { api } from '../services/api'
-import { useParams,useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import Table from '../components/Table'
 
 export default function ProjectsDetails() {
@@ -8,7 +8,10 @@ export default function ProjectsDetails() {
   const [project, SetProject] = useState([])
   const [task, SetTask] = useState([])
   const [assignees, SetAssignees] = useState([])
-  const navigate = useNavigate();  
+  const navigate = useNavigate()
+  const authuser = localStorage.getItem('auth')
+  const user = JSON.parse(authuser).user
+
   useEffect(() => {
     async function loadData() {
       try {
@@ -17,7 +20,24 @@ export default function ProjectsDetails() {
 
         const taskres = await api.get(`/tasks?projectId=${id}`)
         const tasks = taskres.data || []
-        SetTask(tasks)
+        if (user.role === 'admin') {
+          SetTask(tasks)
+        } else {
+          const userId = String(user.id)
+
+          const includesUser = (field) => {
+            if (field == null) return false
+            if (Array.isArray(field)) {
+              return field.some((id) => String(id) === userId)
+            }
+            return String(field) === userId
+          }
+
+          const emptasks = (tasks || []).filter((t) => {
+            includesUser(t.assigneeId)
+          })
+          SetTask(emptasks)
+        }
 
         const assigneeIds = tasks.flatMap((t) => {
           if (Array.isArray(t.assigneeId)) {
@@ -37,9 +57,9 @@ export default function ProjectsDetails() {
         const assignee = await Promise.all(
           uniqueIds.map((id) =>
             api.get(`/employees/${id}`).then((res) => res.data),
-          )
-        );
-        
+          ),
+        )
+
         SetAssignees(assignee)
       } catch (error) {
         console.log('Error loading data:', error?.message)
@@ -49,14 +69,24 @@ export default function ProjectsDetails() {
     loadData()
   }, [])
 
-function getAssigneename(assigneeId) {
-  const assignee = assignees.find(a => a.id == assigneeId);
-  return assignee ? assignee.name : "Unknown";
+  function getAssigneename(assigneeId) {
+    if (!assigneeId || (Array.isArray(assigneeId) && assigneeId.length === 0)) {
+  return "No assignees";
 }
 
+    if (Array.isArray(assigneeId)) {
+      const names = assigneeId.map((id) => {
+        const assignee = assignees.find((a) => a.id == id)
+        return assignee ? assignee.name : 'Unknown'
+      })
+      return names.join(', ')
+    }
+    const assignee = assignees.find((a) => a.id == assigneeId)
+    return assignee ? assignee.name : 'Unknown'
+  }
 
   return (
-    <div >
+    <div>
       <div className="w-full h-[105px] flex flex-row justify-between">
         <div className="w-[503px] h-[73px] text-left">
           <h1 className="h[40px] mb-4 text-3xl">Project : {project.name}</h1>
@@ -66,8 +96,10 @@ function getAssigneename(assigneeId) {
           <button className="bg-gray-200 rounded-2xl pr-4 pl-4 pt-1 pb-1 text-black ">
             Edit Project
           </button>
-          <button className="bg-gray-200 rounded-2xl pr-4 pl-4 pt-1 pb-1 text-black"
-          onClick={()=>navigate('/tasks')}>
+          <button
+            className="bg-gray-200 rounded-2xl pr-4 pl-4 pt-1 pb-1 text-black"
+            onClick={() => navigate('/tasks')}
+          >
             Add Task
           </button>
         </div>
@@ -105,16 +137,12 @@ function getAssigneename(assigneeId) {
           data={task}
           renderRow={(t) => (
             <tr key={t.id} className="hover:bg-gray-50">
-              <td className="px-4 py-3">
-                {t.title}
-              </td>
-              <td  className="px-4 py-3 text-gray-600">
+              <td className="px-4 py-3">{t.title}</td>
+              <td className="px-4 py-3 text-gray-600">
                 {getAssigneename(t.assigneeId)}
               </td>
-              <td  className="px-4 py-3 text-gray-600">
-                {t.duedate}
-              </td>
-              <td  className="px-4 py-5">
+              <td className="px-4 py-3 text-gray-600">{t.duedate}</td>
+              <td className="px-4 py-5">
                 <span className="block w-full py-1.5 px-2 rounded-lg bg-[#F0F2F5]">
                   {t.status}
                 </span>
@@ -124,13 +152,21 @@ function getAssigneename(assigneeId) {
         ></Table>
       </div>
       <div className="mt-4 text-left">
-        <button className="px-4 py-2 bg-gray-300 rounded-lg" onClick={()=>navigate('/tasks')}>Add Task</button>
+        <button
+          className="px-4 py-2 bg-gray-300 rounded-lg"
+          onClick={() => navigate('/tasks')}
+        >
+          Add Task
+        </button>
       </div>
       <div className="flex justify-end gap-3 mt-4">
         <button className="px-4 py-2 bg-gray-300 rounded-lg">
           Delete Project
         </button>
-        <button className="px-4 py-2 bg-[#0D80F2] rounded-lg" onClick={()=>navigate('/projects')}>
+        <button
+          className="px-4 py-2 bg-[#0D80F2] rounded-lg"
+          onClick={() => navigate('/projects')}
+        >
           Save Changes
         </button>
       </div>

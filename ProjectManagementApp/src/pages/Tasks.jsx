@@ -56,7 +56,7 @@ export default function Tasks() {
     setSubmitError('')
     try {
       const payload = {
-        name: data.name.trim(),
+        title: data.name.trim(),
         description: data.description,
         assigneeId:data.assignedEmployeeIds,
         status:data.status,
@@ -145,7 +145,7 @@ export default function Tasks() {
               Status
             </label>
             <Controller
-              name="staus"
+              name="status"
               control={control}
               render={({ field }) => (
                 <Select
