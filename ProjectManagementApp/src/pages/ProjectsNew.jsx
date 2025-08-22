@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../services/api'
-import { Select, Spin , Tooltip } from 'antd'
-
+import { notification, Select, Spin , Tooltip } from 'antd'
 export default function ProjectsNew() {
   const {
     register,
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm({
     defaultValues: {
       name: '',
@@ -59,7 +59,14 @@ export default function ProjectsNew() {
       }
 
       await api.post('/projects', payload)
-      navigate('/projects')
+      reset();
+     notification.success({
+        message:'Success',
+        description:'Project Added Successfully!!',
+        placement:'topRight',
+        duration:3
+          });
+      // navigate('/projects')
     } catch (err) {
       setSubmitError(err?.message || 'Failed to create project')
     }
@@ -201,4 +208,5 @@ export default function ProjectsNew() {
         </div>
       </div>
   )
+
 }

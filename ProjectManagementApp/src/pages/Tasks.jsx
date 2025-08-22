@@ -2,7 +2,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { api } from '../services/api'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Select, Spin, DatePicker,Tooltip } from 'antd'
+import { Select, Spin, DatePicker,Tooltip ,notification} from 'antd'
 import dayjs from 'dayjs'
 
 export default function Tasks() {
@@ -11,6 +11,7 @@ export default function Tasks() {
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm({
     defaultValues: {
       name: '',
@@ -28,7 +29,6 @@ export default function Tasks() {
   const [loadError, setLoadError] = useState('')
 
   const navigate = useNavigate()
-  const { Option } = Select
 
   useEffect(() => {
     let mounted = true
@@ -63,8 +63,15 @@ export default function Tasks() {
         priority: data.priority,
         duedate: data.dueDate,
       }
-      await api.post('/tasks', payload)
-      navigate('/tasks')
+      await api.post('/tasks', payload);
+      reset();
+      notification.success({
+        message:'Success',
+        description:'Task Added Successfully!!',
+        placement:'topRight',
+        duration:3
+          });
+      // navigate('/tasks')
     } catch (error) {
       setSubmitError(error?.message || 'Failed to Add Task')
     }

@@ -2,12 +2,16 @@ import { useEffect, useState } from 'react'
 import { api } from '../services/api'
 import { useParams, useNavigate } from 'react-router-dom'
 import Table from '../components/Table'
+import { Modal, notification } from 'antd'
 
 export default function ProjectsDetails() {
   const { id } = useParams()
   const [project, SetProject] = useState([])
   const [task, SetTask] = useState([])
   const [assignees, SetAssignees] = useState([])
+  const [filter, setFilter] = useState('Pending')
+  const [showModal, setShowModal] = useState(false)
+
   const navigate = useNavigate()
   const authuser = localStorage.getItem('auth')
   const user = JSON.parse(authuser).user
@@ -85,15 +89,55 @@ export default function ProjectsDetails() {
     return assignee ? assignee.name : 'Unknown'
   }
 
+  function getFilteredTasks() {
+    return [
+      ...task.filter((t) => {
+        if (filter === 'Pending') return t.status === 'Pending'
+        if (filter === 'In Progress') return t.status === 'In Progress'
+        if (filter === 'completed') return t.status === 'completed'
+      }),
+      ...task.filter((t) => {
+        if (filter === 'Pending') return t.status !== 'Pending'
+        if (filter === 'In Progress') return t.status !== 'In Progress'
+        if (filter === 'completed') return t.status !== 'completed'
+      }),
+    ]
+  }
+
+  async function handleDelete() {
+    try {
+      await api.delete(`projects/${id}`)
+      Modal.success({ Content: 'Project deleted successfully!!' })
+      navigate('/projects')
+    } catch (error) {
+      Modal.error({ Content: 'Failed to Delete Project.' })
+    }
+  }
+
+  function handleSave(){
+      notification.success({
+        message:'Success',
+        description:'Project Saved Successfully!!',
+        placement:'topRight',
+        duration:2
+          });
+
+    setTimeout(() => {
+        navigate('/projects')
+    }, 500);      
+
+  }
+
   return (
     <div>
       <div className="w-full h-[105px] flex flex-row justify-between">
-        <div className="w-[503px] h-[73px] text-left">
+        <div className="w-[503px] h-[73px] text-left">  
           <h1 className="h[40px] mb-4 text-3xl">Project : {project.name}</h1>
           <p className="text-sm text-gray-400">{project.description}</p>
         </div>
         <div className="flex flex-row pt-8 pb-8  pr-4 align-middle gap-9">
-          <button className="bg-gray-200 rounded-2xl pr-4 pl-4 pt-1 pb-1 text-black ">
+          <button className="bg-gray-200 rounded-2xl pr-4 pl-4 pt-1 pb-1 text-black "
+          onClick={()=>{navigate(`/projects/edit/${id}`)}}>
             Edit Project
           </button>
           <button
@@ -132,13 +176,22 @@ export default function ProjectsDetails() {
           <h1>Tasks</h1>
         </div>
         <div className="flex flex-row pr-4 align-middle gap-5">
-          <button className="bg-gray-200 rounded-lg pr-4 pl-4 pt-1 pb-1 text-black">
+          <button
+            className="bg-gray-200 rounded-lg pr-4 pl-4 pt-1 pb-1 text-black"
+            onClick={() => setFilter('Pending')}
+          >
             Not Started
           </button>
-          <button className="bg-gray-200 rounded-lg pr-4 pl-4 pt-1 pb-1 text-black">
+          <button
+            className="bg-gray-200 rounded-lg pr-4 pl-4 pt-1 pb-1 text-black"
+            onClick={() => setFilter('In Progress')}
+          >
             In Progress
           </button>
-          <button className="bg-gray-200 rounded-lg pr-4 pl-4 pt-1 pb-1 text-black">
+          <button
+            className="bg-gray-200 rounded-lg pr-4 pl-4 pt-1 pb-1 text-black"
+            onClick={() => setFilter('completed')}
+          >
             Completed
           </button>
         </div>
@@ -146,7 +199,7 @@ export default function ProjectsDetails() {
       <div>
         <Table
           columns={['Tasks', 'Assignee', 'Due Date', 'Status']}
-          data={task}
+          data={getFilteredTasks()}
           renderRow={(t) => (
             <tr key={t.id} className="hover:bg-gray-50">
               <td className="px-4 py-3">{t.title}</td>
@@ -172,15 +225,33 @@ export default function ProjectsDetails() {
         </button>
       </div>
       <div className="flex justify-end gap-3 mt-4">
-        <button className="px-4 py-2 bg-gray-300 rounded-lg">
+        <button
+          className="px-4 py-2 bg-gray-300 rounded-lg"
+          onClick={() => setShowModal(true)}
+        >
           Delete Project
         </button>
         <button
-          className="px-4 py-2 bg-[#0D80F2] rounded-lg"
-          onClick={() => navigate('/projects')}
+          className="px-4 py-2 bg-[#0D80F2] !text-white rounded-lg "
+          onClick={handleSave}
         >
-          Save Changes
-        </button>
+            Save Changes
+            </button>
+
+        <Modal
+          title="Confirm Deletion"
+          open={showModal}
+          onCancel={() => setShowModal(false)} // cancel close
+          onOk={handleDelete} // confirm delete
+          okText="Yes, Delete"
+          cancelText="Cancel"
+          width={600}
+          className="h-[50]"
+        >
+          <p>
+            Are you sure you want to delete the project <b>{project.name}</b>?
+          </p>
+        </Modal>
       </div>
     </div>
   )

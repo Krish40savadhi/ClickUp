@@ -53,35 +53,52 @@
       "department": "QA",
       "designation": "QA Engineer",
       "role": "employee"
+    },
+    {
+      "id": "34e9",
+      "name": "jack",
+      "email": "jack@sarvadhi.com",
+      "department": "Node.js",
+      "designation": "Backend developer"
     }
   ],
   "projects": [
     {
-      "id": "1",
       "name": "Website Revamp",
       "description": "Marketing site redesign",
-      "employeeIds": ["2", "3"],
-      "createdById": "1"
+      "employeeIds": [
+        3
+      ],
+      "id": "1"
     },
     {
       "id": "2",
       "name": "Internal Tools",
       "description": "Admin dashboards",
-      "employeeIds": ["2", "6"],
+      "employeeIds": [
+        "2",
+        "6"
+      ],
       "createdById": "1"
     },
     {
       "id": "3",
       "name": "E-Commerce Site",
       "description": "Develop Amazon-like site",
-      "employeeIds": ["4", "5"],
+      "employeeIds": [
+        "4",
+        "5"
+      ],
       "createdById": "1"
     },
     {
       "id": "4",
       "name": "Project Horizon",
       "description": "Develop a new marketing campaign for the upcoming product launch.",
-      "employeeIds": ["2", "5"],
+      "employeeIds": [
+        "2",
+        "5"
+      ],
       "createdById": "1",
       "taskCount": 10
     },
@@ -89,7 +106,10 @@
       "id": "5",
       "name": "Project Zenith",
       "description": "Optimize the existing e-commerce platform for better performance.",
-      "employeeIds": ["4", "6"],
+      "employeeIds": [
+        "4",
+        "6"
+      ],
       "createdById": "4",
       "taskCount": 7
     },
@@ -97,7 +117,11 @@
       "id": "6",
       "name": "Project Phoenix",
       "description": "Develop a new customer relationship management system.",
-      "employeeIds": ["2", "3", "4"],
+      "employeeIds": [
+        "2",
+        "3",
+        "4"
+      ],
       "createdById": "1",
       "taskCount": 12
     },
@@ -105,7 +129,10 @@
       "id": "7",
       "name": "Project Aurora",
       "description": "Design and implement a new user interface for the mobile app.",
-      "employeeIds": ["5", "6"],
+      "employeeIds": [
+        "5",
+        "6"
+      ],
       "createdById": "2",
       "taskCount": 8
     },
@@ -113,7 +140,11 @@
       "id": "8",
       "name": "Project Nebula",
       "description": "Create a data analytics dashboard for sales performance tracking.",
-      "employeeIds": ["2", "3", "5"],
+      "employeeIds": [
+        "2",
+        "3",
+        "5"
+      ],
       "createdById": "3",
       "taskCount": 15
     }
@@ -138,7 +169,7 @@
       "assigneeId": "3",
       "createdById": "1",
       "priority": "Medium",
-      "status": "To Do",
+      "status": "Pending",
       "duedate": "2025-09-01"
     },
     {
@@ -146,7 +177,10 @@
       "projectId": "3",
       "title": "Amazon Website",
       "description": "Products page and payment integration",
-      "assigneeId": ["4", "5"],
+      "assigneeId": [
+        "4",
+        "5"
+      ],
       "createdById": "1",
       "priority": "High",
       "status": "Pending",
@@ -157,7 +191,10 @@
       "projectId": "6",
       "title": "CRM Dashboard",
       "description": "Overview panel for clients and tasks",
-      "assigneeId": ["2", "3"],
+      "assigneeId": [
+        "2",
+        "3"
+      ],
       "createdById": "1",
       "priority": "High",
       "status": "In Progress",
@@ -179,7 +216,10 @@
       "projectId": "8",
       "title": "Analytics Setup",
       "description": "Create KPIs and charts",
-      "assigneeId": ["2", "5"],
+      "assigneeId": [
+        "2",
+        "5"
+      ],
       "createdById": "3",
       "priority": "High",
       "status": "In Progress",
@@ -190,10 +230,13 @@
       "projectId": "4",
       "title": "Marketing Brief",
       "description": "Content plan and outreach list",
-      "assigneeId": ["2", "5"],
+      "assigneeId": [
+        "2",
+        "5"
+      ],
       "createdById": "1",
       "priority": "Low",
-      "status": "To Do",
+      "status": "Pending",
       "duedate": "2025-09-03"
     },
     {
@@ -201,7 +244,10 @@
       "projectId": "5",
       "title": "E-comm Optimization",
       "description": "Lazy loading and Lighthouse fixes",
-      "assigneeId": ["4", "6"],
+      "assigneeId": [
+        "4",
+        "6"
+      ],
       "createdById": "4",
       "priority": "Medium",
       "status": "In Progress",
@@ -212,10 +258,13 @@
       "projectId": "2",
       "title": "Admin Dashboard",
       "description": "User roles and metrics",
-      "assigneeId": ["2", "6"],
+      "assigneeId": [
+        "2",
+        "6"
+      ],
       "createdById": "1",
       "priority": "High",
-      "status": "To Do",
+      "status": "Pending",
       "duedate": "2025-09-04"
     }
   ]

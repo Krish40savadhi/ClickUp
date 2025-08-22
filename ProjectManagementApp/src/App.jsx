@@ -6,6 +6,7 @@ import Login from './pages/LoginPage'
 import Layout from './components/Layout'
 
 import './App.css'
+import 'antd/dist/reset.css' 
 
 import AdminDashboard from './pages/AdminDashborad'
 import ProjectsPage from './pages/ProjectsPage'
@@ -13,6 +14,7 @@ import ProjectsDetails from './pages/ProjectsDetails'
 import ProjectsNew from './pages/ProjectsNew'
 import EmployeeNew from './pages/EmplolyeeNew'
 import Tasks from './pages/Tasks'
+import ProjectsEdit from './pages/ProjectsEdit'
 
 function Unauthorised() {
   return (
@@ -39,6 +41,7 @@ export default function App() {
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/employees" element={<EmployeeNew />} />
                 <Route path="/projects/new" element={<ProjectsNew />} />
+                <Route path="/projects/edit/:id" element={<ProjectsEdit/>} />
               </Route>
 
               <Route

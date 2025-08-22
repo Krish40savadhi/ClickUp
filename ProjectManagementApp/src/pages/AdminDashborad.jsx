@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from 'react'
-import Layout from '../components/Layout'
 import { api } from '../services/api'
 import { Link, Navigate } from 'react-router-dom'
 import Table from '../components/Table'
@@ -46,7 +45,6 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <Layout>
         <div className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="h-28 bg-white rounded-2xl shadow-sm animate-pulse" />
@@ -55,13 +53,11 @@ export default function AdminDashboard() {
           <div className="h-64 bg-white rounded-2xl shadow-sm animate-pulse" />
           <div className="h-64 bg-white rounded-2xl shadow-sm animate-pulse" />
         </div>
-      </Layout>
     )
   }
 
   if (error) {
     return (
-      <Layout>
         <div className="p-6">
           <p className="text-red-600">Failed to load dashboard: {error}</p>
           <button
@@ -71,7 +67,6 @@ export default function AdminDashboard() {
             Retry
           </button>
         </div>
-      </Layout>
     )
   }
 

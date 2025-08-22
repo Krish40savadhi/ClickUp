@@ -2,7 +2,6 @@ import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/Authcontext';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Layout from "../components/Layout.jsx";
 
 
 export default function Login() {
@@ -28,7 +27,6 @@ const [serverError, setServerError] = useState("");
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white-50">
-     <Layout/>
       <div className="w-full max-w-md bg-white rounded-2xl shadow-sm p-8">
         <h1 className="text-2xl font-semibold text-center">Welcome Back!!</h1>
         <p className="text-sm text-center text-gray-500 mt-1">
@@ -84,7 +82,7 @@ const [serverError, setServerError] = useState("");
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full rounded-lg bg-blue-600 text-white py-2.5 font-medium hover:bg-blue-700 disabled:opacity-60"
+            className="w-full rounded-lg bg-[#0D80F2] !text-white py-2.5 font-medium disabled:opacity-60"
           >
             {isSubmitting ? 'Logging in...' : 'Log in'}
           </button>

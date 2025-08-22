@@ -2,13 +2,14 @@ import { useState } from 'react'
 import { api } from '../services/api'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { Tooltip } from 'antd'
+import { Tooltip,notification } from 'antd'
 
 export default function EmployeeNew() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: {errors, isSubmitting },
+    reset,
   } = useForm({
     defaultValues: {
       name: '',
@@ -29,8 +30,16 @@ export default function EmployeeNew() {
         department: data.department,
         designation: data.role,
       }
-      await api.post('/employees', payload)
-      navigate('/employees')
+      await api.post('/employees', payload);
+      reset();
+      notification.success({
+        message:'Success',
+        description:'Employee Added Successfully!!',
+        placement:'topRight',
+        duration:3
+          });
+
+    //   navigate('/employees')
     } catch (error) {
       setSubmitError(error?.message || 'Failed to Add Employee.')
     }

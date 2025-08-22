@@ -1,10 +1,16 @@
 import { useAuth } from '../context/Authcontext'
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 export default function Navbar() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
+
   if (!user) return null
+
+  const linkClass = ({ isActive }) =>
+    isActive
+      ? 'border-b-2 border-blue-600 pb-1'
+      : 'text-gray-700 pb-1'
 
   return (
     <header className="fixed top-0 left-0 w-full bg-white shadow-sm h-16 flex items-center px-6 z-50">
@@ -15,36 +21,40 @@ export default function Navbar() {
           className="h-30 w-30"
         />
       </div>
+
       <nav className="ml-auto flex items-center gap-6">
         {/* Admin only */}
         {user.role === 'admin' && (
           <>
-            <Link to="/admin">Dashboard</Link>
-             <Link to="/projects">Projects</Link>
-            <Link to="/employees">Employees</Link>
+            <NavLink to="/admin" className={linkClass}>Dashboard</NavLink>
+            <NavLink to="/projects" className={linkClass}>Projects</NavLink>
+            <NavLink to="/employees" className={linkClass}>Employees</NavLink>
           </>
         )}
 
         {/* Employee only */}
-        {user.role === 'employee' && <Link to="/projects">Projects</Link>}
+        {user.role === 'employee' && (
+          <NavLink to="/projects" className={linkClass}>Projects</NavLink>
+        )}
 
-        <Link to="/tasks">Tasks</Link>
-        <div className='flex gap-2'>
-        <button
-          onClick={logout}
-          className="text-lg text-black font-bold bg-gray-200 px-5 py-2.5 rounded-lg"
-          >
-          Logout
-        </button>
+        <NavLink to="/tasks" className={linkClass}>Tasks</NavLink>
+
+        <div className="flex gap-2">
           <button
-        onClick={() => navigate(-1)}
-        className="text-lg text-black font-bold bg-gray-200 px-2.5 py-2.5 rounded-lg"
-      >
-        ←
-      </button>
+            onClick={logout}
+            className="text-lg text-black font-bold bg-gray-200 px-5 py-2.5 rounded-lg"
+          >
+            Logout
+          </button>
+
+          <button
+            onClick={() => navigate(-1)}
+            className="text-lg text-black font-bold bg-gray-200 px-2.5 py-2.5 rounded-lg"
+          >
+            ←
+          </button>
         </div>
       </nav>
-    
     </header>
   )
 }
