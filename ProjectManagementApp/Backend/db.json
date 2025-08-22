@@ -30,19 +30,29 @@
     {
       "id": "4",
       "name": "Krish Patel",
-      "email": "Krish@sarvadhi.com",
-      "password": "123456789",
+      "email": "krish@sarvadhi.com",
+      "password": "krish123",
       "department": "Engineering",
       "designation": "Backend Dev",
       "role": "admin"
     },
     {
-      "id": "8233",
-      "name": "Pavan",
+      "id": "5",
+      "name": "Pavan Kumar",
       "email": "pavan@sarvadhi.com",
+      "password": "pavan123",
       "department": "React.JS",
       "designation": "Senior Developer",
-      "role": "admin"
+      "role": "employee"
+    },
+    {
+      "id": "6",
+      "name": "Sana Malik",
+      "email": "sana@sarvadhi.com",
+      "password": "sana123",
+      "department": "QA",
+      "designation": "QA Engineer",
+      "role": "employee"
     }
   ],
   "projects": [
@@ -50,87 +60,62 @@
       "id": "1",
       "name": "Website Revamp",
       "description": "Marketing site redesign",
-      "employeeIds": [
-        2,
-        3
-      ],
-      "createdById": 1
+      "employeeIds": ["2", "3"],
+      "createdById": "1"
     },
     {
       "id": "2",
       "name": "Internal Tools",
       "description": "Admin dashboards",
-      "employeeIds": [
-        2
-      ],
-      "createdById": 1
+      "employeeIds": ["2", "6"],
+      "createdById": "1"
     },
     {
       "id": "3",
       "name": "E-Commerce Site",
       "description": "Develop Amazon-like site",
-      "employeeIds": [
-        4,
-        5
-      ],
-      "createdById": 1
-    },
-    {
-      "id": "6",
-      "name": "Project Phoenix",
-      "description": "Develop a new customer relationship management system.",
-      "employeeIds": [
-        2,
-        3,
-        4
-      ],
-      "createdById": 1,
-      "taskCount": 12
-    },
-    {
-      "id": "7",
-      "name": "Project Aurora",
-      "description": "Design and implement a new user interface for the mobile app.",
-      "employeeIds": [
-        5,
-        6
-      ],
-      "createdById": 2,
-      "taskCount": 8
-    },
-    {
-      "id": "8",
-      "name": "Project Nebula",
-      "description": "Create a data analytics dashboard for sales performance tracking.",
-      "employeeIds": [
-        7,
-        8,
-        9
-      ],
-      "createdById": 3,
-      "taskCount": 15
+      "employeeIds": ["4", "5"],
+      "createdById": "1"
     },
     {
       "id": "4",
       "name": "Project Horizon",
       "description": "Develop a new marketing campaign for the upcoming product launch.",
-      "employeeIds": [
-        2,
-        10
-      ],
-      "createdById": 1,
+      "employeeIds": ["2", "5"],
+      "createdById": "1",
       "taskCount": 10
     },
     {
       "id": "5",
       "name": "Project Zenith",
       "description": "Optimize the existing e-commerce platform for better performance.",
-      "employeeIds": [
-        4,
-        6
-      ],
-      "createdById": 4,
+      "employeeIds": ["4", "6"],
+      "createdById": "4",
       "taskCount": 7
+    },
+    {
+      "id": "6",
+      "name": "Project Phoenix",
+      "description": "Develop a new customer relationship management system.",
+      "employeeIds": ["2", "3", "4"],
+      "createdById": "1",
+      "taskCount": 12
+    },
+    {
+      "id": "7",
+      "name": "Project Aurora",
+      "description": "Design and implement a new user interface for the mobile app.",
+      "employeeIds": ["5", "6"],
+      "createdById": "2",
+      "taskCount": 8
+    },
+    {
+      "id": "8",
+      "name": "Project Nebula",
+      "description": "Create a data analytics dashboard for sales performance tracking.",
+      "employeeIds": ["2", "3", "5"],
+      "createdById": "3",
+      "taskCount": 15
     }
   ],
   "tasks": [
@@ -139,56 +124,99 @@
       "projectId": "1",
       "title": "Build Login UI",
       "description": "Implement design in React",
-      "assigneeId": 2,
-      "createdById": 1,
+      "assigneeId": "2",
+      "createdById": "1",
       "priority": "High",
-      "status": "In Progress"
+      "status": "In Progress",
+      "duedate": "2025-08-30"
     },
     {
       "id": "2",
       "projectId": "1",
       "title": "Auth Context",
       "description": "Context with localStorage",
-      "assigneeId": 3,
-      "createdById": 1,
+      "assigneeId": "3",
+      "createdById": "1",
       "priority": "Medium",
-      "status": "To Do"
+      "status": "To Do",
+      "duedate": "2025-09-01"
     },
     {
       "id": "3",
       "projectId": "3",
       "title": "Amazon Website",
       "description": "Products page and payment integration",
-      "assigneeId": [
-        4,
-        5
-      ],
-      "createdById": 1,
+      "assigneeId": ["4", "5"],
+      "createdById": "1",
       "priority": "High",
-      "status": "Pending"
-    },
-    {
-      "id": "c0e0",
-      "title": "Promplyzer",
-      "description": "To develop a ai agent that can review a promt in the best possible way.",
-      "assigneeId": [
-        "1",
-        "2"
-      ],
       "status": "Pending",
-      "priority": "medium",
-      "duedate": ""
+      "duedate": "2025-09-15"
     },
     {
-      "id": "319d",
-      "title": "Add src images",
-      "description": "to add the src images to the project details page.",
-      "assigneeId": [
-        "4"
-      ],
+      "id": "4",
+      "projectId": "6",
+      "title": "CRM Dashboard",
+      "description": "Overview panel for clients and tasks",
+      "assigneeId": ["2", "3"],
+      "createdById": "1",
+      "priority": "High",
+      "status": "In Progress",
+      "duedate": "2025-09-05"
+    },
+    {
+      "id": "5",
+      "projectId": "7",
+      "title": "Mobile App UI",
+      "description": "Responsive design implementation",
+      "assigneeId": "5",
+      "createdById": "2",
+      "priority": "Medium",
+      "status": "Completed",
+      "duedate": "2025-08-20"
+    },
+    {
+      "id": "6",
+      "projectId": "8",
+      "title": "Analytics Setup",
+      "description": "Create KPIs and charts",
+      "assigneeId": ["2", "5"],
+      "createdById": "3",
+      "priority": "High",
+      "status": "In Progress",
+      "duedate": "2025-09-10"
+    },
+    {
+      "id": "7",
+      "projectId": "4",
+      "title": "Marketing Brief",
+      "description": "Content plan and outreach list",
+      "assigneeId": ["2", "5"],
+      "createdById": "1",
+      "priority": "Low",
       "status": "To Do",
-      "priority": "high",
-      "duedate": ""
+      "duedate": "2025-09-03"
+    },
+    {
+      "id": "8",
+      "projectId": "5",
+      "title": "E-comm Optimization",
+      "description": "Lazy loading and Lighthouse fixes",
+      "assigneeId": ["4", "6"],
+      "createdById": "4",
+      "priority": "Medium",
+      "status": "In Progress",
+      "duedate": "2025-09-12"
+    },
+    {
+      "id": "9",
+      "projectId": "2",
+      "title": "Admin Dashboard",
+      "description": "User roles and metrics",
+      "assigneeId": ["2", "6"],
+      "createdById": "1",
+      "priority": "High",
+      "status": "To Do",
+      "duedate": "2025-09-04"
     }
   ]
 }

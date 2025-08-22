@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import Layout from '../components/Layout'
 import { api } from '../services/api'
-import { Select, Spin } from 'antd'
+import { Select, Spin , Tooltip } from 'antd'
 
 export default function ProjectsNew() {
   const {
@@ -85,8 +84,14 @@ export default function ProjectsNew() {
               <div className="w-full max-w-[448px] flex flex-col gap-6">
                 <div>
                   <label className="block text-left text-lg font-medium mb-2">
-                    Project Name *
+                    Project Name
                   </label>
+                 <Tooltip
+                  title={<span className="text-red-600">{errors.name?.message}</span>}
+                  open={!!errors.name}
+                  color="#fff"
+                  placement="right"
+                >
                   <input
                     type="text"
                     placeholder="Enter Project Name"
@@ -95,11 +100,7 @@ export default function ProjectsNew() {
                     })}
                     className="w-full h-[56px] border rounded-2xl border-gray-300 p-[15px] text-sm focus:outline-none focus:ring"
                   />
-                  {errors.name && (
-                    <p className="mt-2 text-xs text-red-600">
-                      {errors.name.message}
-                    </p>
-                  )}
+                </Tooltip>
                 </div>
 
                 <div>
@@ -109,9 +110,9 @@ export default function ProjectsNew() {
                     </label>
                     <div className="w-[448px] h-[144px]">
                       <textarea
-                        {...register('description')}
-                        className="w-full h-[144px]  border rounded-2xl border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring"
-                      />
+                    {...register('description')}
+                    className="w-full h-[144px] border rounded-2xl border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring"
+                  />
                     </div>
                   </div>
                 </div>
@@ -126,37 +127,49 @@ export default function ProjectsNew() {
                       <Spin size="small" className="text-gray-500" />
                     ) : (
                       <Controller
-                        name="assignedEmployeeIds"
-                        control={control}
-                        render={({ field }) => (
-                          <Select
-                            mode="multiple"
-                            allowClear
-                            placeholder="Enter employee's"
-                            value={field.value}
-                            onChange={(val) => field.onChange(val)}
-                            className="custom-select w-full"
-                            optionLabelProp="label"
-                          >
-                            {employees.map((emp) => (
-                              <Option
-                                key={emp.id}
-                                value={emp.id}
-                                label={emp.name}
-                              >
-                                <div className="flex flex-col">
-                                  <span className="font-medium">
-                                    {emp.name}
-                                  </span>
-                                  <span className="text-xs text-gray-500">
-                                    {emp.email}
-                                  </span>
-                                </div>
-                              </Option>
-                            ))}
-                          </Select>
-                        )}
-                      />
+                    name="assignedEmployeeIds"
+                    control={control}
+                    rules={{ required: 'Please assign at least one employee' }}
+                    render={({ field }) => (
+                      <Tooltip
+                        title={
+                          <span className="text-red-600">
+                            {errors.assignedEmployeeIds?.message}
+                          </span>
+                        }
+                        open={!!errors.assignedEmployeeIds}
+                        color="#fff"
+                        placement="right"
+                      >
+                        <Select
+                          mode="multiple"
+                          allowClear
+                          placeholder="Select employees"
+                          value={field.value}
+                          onChange={field.onChange}
+                          className="w-full h-[56px]"
+                          optionLabelProp="label"
+                        >
+                          {employees.map((emp) => (
+                            <Option
+                              key={emp.id}
+                              value={emp.id}
+                              label={emp.name}
+                            >
+                              <div className="flex flex-col">
+                                <span className="font-medium">
+                                  {emp.name}
+                                </span>
+                                <span className="text-xs text-gray-500">
+                                  {emp.email}
+                                </span>
+                              </div>
+                            </Option>
+                          ))}
+                        </Select>
+                      </Tooltip>
+                    )}
+                  />
                     )}
                   </div>
                 </div>

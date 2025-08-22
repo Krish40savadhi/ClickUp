@@ -28,14 +28,14 @@ export default function ProjectsDetails() {
           const includesUser = (field) => {
             if (field == null) return false
             if (Array.isArray(field)) {
-              return field.some((id) => String(id) === userId)
+              return field.includes(userId)
             }
             return String(field) === userId
           }
 
-          const emptasks = (tasks || []).filter((t) => {
-            includesUser(t.assigneeId)
-          })
+          const emptasks = (tasks || []).filter((t) =>
+            includesUser(t.assigneeId),
+          )
           SetTask(emptasks)
         }
 
@@ -71,8 +71,8 @@ export default function ProjectsDetails() {
 
   function getAssigneename(assigneeId) {
     if (!assigneeId || (Array.isArray(assigneeId) && assigneeId.length === 0)) {
-  return "No assignees";
-}
+      return 'No assignees'
+    }
 
     if (Array.isArray(assigneeId)) {
       const names = assigneeId.map((id) => {
@@ -108,11 +108,23 @@ export default function ProjectsDetails() {
         <h1>Assigned Employees</h1>
       </div>
       <div className="text-left text-lg font-bold mt-3 mb-3">
-        <div className="flex flex-row">
-          <img src="" alt="" className="h-11 w-11" />
-          <img src="" alt="" className="h-11 w-11" />
-          <img src="" alt="" className="h-11 w-11" />
-          <img src="" alt="" className="h-11 w-11" />
+        <div className="flex -space-x-3">
+          <img
+            src="https://randomuser.me/api/portraits/women/44.jpg"
+            className="h-11 w-11 rounded-full"
+          />
+          <img
+            src="https://randomuser.me/api/portraits/men/32.jpg"
+            className="h-11 w-11 rounded-full"
+          />
+          <img
+            src="https://randomuser.me/api/portraits/men/75.jpg"
+            className="h-11 w-11 rounded-full"
+          />
+          <img
+            src="https://randomuser.me/api/portraits/women/68.jpg"
+            className="h-11 w-11 rounded-full"
+          />
         </div>
       </div>
       <div className="mt-5 mb-3 text-left text-lg flex flex-row justify-between ">

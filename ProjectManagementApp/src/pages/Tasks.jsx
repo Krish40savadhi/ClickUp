@@ -2,7 +2,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { api } from '../services/api'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Select, Spin, DatePicker } from 'antd'
+import { Select, Spin, DatePicker,Tooltip } from 'antd'
 import dayjs from 'dayjs'
 
 export default function Tasks() {
@@ -57,16 +57,16 @@ export default function Tasks() {
     try {
       const payload = {
         title: data.name.trim(),
-        description: data.description,
-        assigneeId:data.assignedEmployeeIds,
-        status:data.status,
+        description: data.description?.trim() || '',
+        assigneeId: data.assignedEmployeeIds,
+        status: data.status,
         priority: data.priority,
-        duedate: data.duedate,
+        duedate: data.dueDate,
       }
-      await api.post('/tasks',payload)
+      await api.post('/tasks', payload)
       navigate('/tasks')
     } catch (error) {
-        setSubmitError(error?.message || "Failed to Add Task")
+      setSubmitError(error?.message || 'Failed to Add Task')
     }
   }
 
@@ -82,12 +82,21 @@ export default function Tasks() {
             <label className="block text-left font-medium text-lg mb-2">
               Task Name
             </label>
-            <input
-              type="text"
-              placeholder="Enter Task name"
-              {...register('name', { required: 'Emplpoyee name Required' })}
-              className="w-full h-[56px] border rounded-2xl border-gray-300 p-[15px] text-sm focus:outline-none focus:ring"
-            />
+            <Tooltip
+              title={
+                <span className="text-red-600">{errors.name?.message}</span>
+              }
+              open={!!errors.name}
+              color="#fff"
+              placement="right"
+            >
+              <input
+                type="text"
+                placeholder="Enter Task name"
+                {...register('name', { required: 'Task name is required' })}
+                className="w-full h-[56px] border rounded-2xl border-gray-300 p-[15px] text-sm focus:outline-none focus:ring"
+              />
+            </Tooltip>
           </div>
           <div>
             <label className="block text-left h-[32px] text-lg font-medium  pb-[8px]">
@@ -95,10 +104,9 @@ export default function Tasks() {
             </label>
             <div className=" h-[144px]">
               <textarea
-                {...register('description', {
-                  required: 'Task Description Required',
-                })}
-                className="w-full h-[144px]  border rounded-2xl border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring"
+                {...register('description')}
+                placeholder="Enter Description (optional)"
+                className="w-full h-[144px] border rounded-2xl border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring"
               />
             </div>
           </div>
@@ -114,27 +122,43 @@ export default function Tasks() {
               <Controller
                 name="assignedEmployeeIds"
                 control={control}
+                rules={{ required: 'Please assign at least one employee' }}
                 render={({ field }) => (
-                  <Select
-                    mode="multiple"
-                    allowClear
-                    placeholder="Select employee's"
-                    value={field.value}
-                    onChange={(val) => field.onChange(val)}
-                    className="custom-select w-full"
-                    optionLabelProp="label"
+                  <Tooltip
+                    title={
+                      <span className="text-red-600">
+                        {errors.assignedEmployeeIds?.message}
+                      </span>
+                    }
+                    open={!!errors.assignedEmployeeIds}
+                    color="#fff"
+                    placement="right"
                   >
-                    {employees.map((emp) => (
-                      <Option key={emp.id} value={emp.id} label={emp.name}>
-                        <div className="flex flex-col">
-                          <span className="font-medium">{emp.name}</span>
-                          <span className="text-xs text-gray-500">
-                            {emp.email}
-                          </span>
-                        </div>
-                      </Option>
-                    ))}
-                  </Select>
+                    <Select
+                      mode="multiple"
+                      allowClear
+                      placeholder="Select employees"
+                      value={field.value}
+                      onChange={field.onChange}
+                      className="w-full"
+                      optionLabelProp="label"
+                    >
+                      {employees.map((emp) => (
+                        <Select.Option
+                          key={emp.id}
+                          value={emp.id}
+                          label={emp.name}
+                        >
+                          <div className="flex flex-col">
+                            <span className="font-medium">{emp.name}</span>
+                            <span className="text-xs text-gray-500">
+                              {emp.email}
+                            </span>
+                          </div>
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Tooltip>
                 )}
               />
             )}
@@ -147,16 +171,32 @@ export default function Tasks() {
             <Controller
               name="status"
               control={control}
+              rules={{ required: 'Status is required' }}
               render={({ field }) => (
-                <Select
-                  {...field}
-                  placeholder="Select Status"
-                  className="w-full"
+                <Tooltip
+                  title={
+                    <span className="text-red-600">
+                      {errors.status?.message}
+                    </span>
+                  }
+                  open={!!errors.status}
+                  color="#fff"
+                  placement="right"
                 >
-                  <Option value="todo">To Do</Option>
-                  <Option value="in-progress">In Progress</Option>
-                  <Option value="done">Done</Option>
-                </Select>
+                  <Select
+                    placeholder="Select status"
+                    allowClear
+                    value={field.value}
+                    onChange={field.onChange}
+                    className="w-full h-[56px]"
+                  >
+                    <Select.Option value="todo">To Do</Select.Option>
+                    <Select.Option value="in-progress">
+                      In Progress
+                    </Select.Option>
+                    <Select.Option value="done">Done</Select.Option>
+                  </Select>
+                </Tooltip>
               )}
             />
           </div>
@@ -168,16 +208,30 @@ export default function Tasks() {
             <Controller
               name="priority"
               control={control}
+              rules={{ required: 'Priority is required' }}
               render={({ field }) => (
-                <Select
-                  {...field}
-                  placeholder="Select Proirity"
-                  className="w-full"
+                <Tooltip
+                  title={
+                    <span className="text-red-600">
+                      {errors.priority?.message}
+                    </span>
+                  }
+                  open={!!errors.priority}
+                  color="#fff"
+                  placement="right"
                 >
-                  <Option value="high">High</Option>
-                  <Option value="medium">Medium</Option>
-                  <Option value="low">Low</Option>
-                </Select>
+                  <Select
+                    placeholder="Select priority"
+                    allowClear
+                    value={field.value}
+                    onChange={field.onChange}
+                    className="w-full"
+                  >
+                    <Select.Option value="high">High</Select.Option>
+                    <Select.Option value="medium">Medium</Select.Option>
+                    <Select.Option value="low">Low</Select.Option>
+                  </Select>
+                </Tooltip>
               )}
             />
           </div>
@@ -189,15 +243,28 @@ export default function Tasks() {
             <Controller
               name="dueDate"
               control={control}
+              rules={{ required: 'Due date is required' }}
               render={({ field }) => (
-                <DatePicker
-                  value={field.value ? dayjs(field.value) : null} // ✅ Ensure dayjs object
-                  onChange={(date) =>
-                    field.onChange(date ? date.toISOString() : null)
-                  } // Save ISO string
-                  className="w-full h-[56px] rounded-2xl border border-gray-300 px-3 py-2 text-sm"
-                  placeholder="Select Due Date"
-                />
+                <Tooltip
+                  title={
+                    <span className="text-red-600">
+                      {errors.dueDate?.message}
+                    </span>
+                  }
+                  open={!!errors.dueDate}
+                  color="#fff"
+                  placement="right"
+                >
+                  <DatePicker
+                    value={field.value ? dayjs(field.value) : null}
+                    onChange={(date) =>
+                      field.onChange(date ? date.toISOString() : null)
+                    }
+                    className="w-full h-[56px] rounded-2xl border border-gray-300 px-3 py-2 text-sm"
+                    placeholder="Select due date"
+                    style={{ width: '100%' }}
+                  />
+                </Tooltip>
               )}
             />
           </div>
