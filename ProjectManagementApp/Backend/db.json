@@ -67,6 +67,14 @@
       "email": "pavan.vasoya@sarvadhi.com",
       "department": "Webflow",
       "designation": "Employee"
+    },
+    {
+      "id": "d1e9",
+      "name": "Anish Chikhaliya",
+      "email": "anish.chikhaliya@sarvadhi.com",
+      "password": "anish123",
+      "department": "React.JS",
+      "designation": "Admin"
     }
   ],
   "projects": [

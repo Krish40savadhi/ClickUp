@@ -44,10 +44,12 @@ export default function Tasks() {
         setLoadingEmployees(true)
         SetLoadingProjects(true)
 
-        const res = await api.get('/employees')
-        const ProjectList = await api.get(`/projects`)
+        const res = await api.get('/employees');
+        const ProjectList = await api.get(`/projects`);
+        console.log(res.data)
 
         SetProjectList(ProjectList.data)
+        SetEmployees(res.data || [])
 
         if (userRole === 'employee') {
           const employeesProject = ProjectList.data.filter((p) =>
@@ -61,7 +63,6 @@ export default function Tasks() {
         })
 
         if (!mounted) return
-        SetEmployees(res.data || [])
       } catch (error) {
         if (!mounted) return
         setLoadError(error?.message || 'Failed to load Employees')
@@ -125,7 +126,7 @@ export default function Tasks() {
                   <Tooltip
                     title={
                       <span className="text-red-600">
-                        {errors.assignedEmployeeIds?.message}
+                        {errors.selectproject?.message}
                       </span>
                     }
                     open={!!errors.selectproject?.message}

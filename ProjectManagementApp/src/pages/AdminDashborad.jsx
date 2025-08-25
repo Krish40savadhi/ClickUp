@@ -72,7 +72,7 @@ export default function AdminDashboard() {
 
   return (
       <div >
-        <div className="grid grid-cols-2 md:grid-clos-2 gap-6 ">
+        <div className="grid grid-cols-2 md:grid-clos-2 gap-6 w-full h-[28] ">
           <StatCard label="Total Projects" value={projects.length} />
           <StatCard label="Total Employees" value={employees.length} />
         </div>
@@ -135,7 +135,7 @@ export default function AdminDashboard() {
 function StatCard({ label, value }) {
   return (
     <div className="bg-white rounded-2xl border-1 border-gray-300 p-6">
-      <p className="text-lg text-left font-bold text-black-500">{label}</p>
+      <p className="text-2xl text-left font-bold text-black-500">{label}</p>
       <p className="mt-2 text-4xl text-left font-semibold">{value}</p>
     </div>
   )

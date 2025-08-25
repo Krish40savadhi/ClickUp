@@ -219,7 +219,7 @@ export default function ProjectsDetails() {
       <div className="mt-4 text-left">
         <button
           className="px-4 py-2 bg-gray-300 rounded-lg"
-          onClick={() => navigate('/tasks')}
+          onClick={() => navigate(`/tasks?projectid=${id}`)}
         >
           Add Task
         </button>

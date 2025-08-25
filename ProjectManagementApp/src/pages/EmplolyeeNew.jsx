@@ -16,7 +16,7 @@ export default function EmployeeNew() {
       name: '',
       email: '',
       department: '',
-      role:undefined,
+      role: undefined,
     },
     shouldFocusError: true,
   })
@@ -28,6 +28,7 @@ export default function EmployeeNew() {
       const payload = {
         name: data.name.trim(),
         email: data.email.trim(),
+        password: data.password.trim(),
         department: data.department,
         designation: data.role,
       }
@@ -95,6 +96,28 @@ export default function EmployeeNew() {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                     message: 'Invalid email format',
                   },
+                })}
+                className="w-full h-[56px] border rounded-2xl border-gray-300 p-[15px] text-sm focus:outline-none focus:ring"
+              />
+            </Tooltip>
+          </div>
+          <div>
+            <label className="block text-left font-medium text-lg mb-2">
+              Password
+            </label>
+            <Tooltip
+              title={
+                <span className="text-red-600">{errors.password?.message}</span>
+              }
+              color="#fff"
+              open={!!errors.password}
+              placement="right"
+            >
+              <input
+                type="text"
+                placeholder="Enter Password"
+                {...register('password', {
+                  required: 'Employee password Required',
                 })}
                 className="w-full h-[56px] border rounded-2xl border-gray-300 p-[15px] text-sm focus:outline-none focus:ring"
               />
