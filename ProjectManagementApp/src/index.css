@@ -14,7 +14,7 @@
   min-height: 56px !important;
   display: flex !important;
   align-items: center !important;
-  padding-top: 15px !important;
+  /* padding-top: 15px !important; */
   padding-bottom: 0 !important;
   border-radius: 12px;
 }
@@ -23,13 +23,17 @@
 .custom-select .ant-select-selection-placeholder {
   display: flex;
   align-items: center;
-}
+  text-align: left;
+  font-size: 16px;
+}   
 
 /* Optional: tag style (for selected options) */
 .custom-select .ant-select-selection-item {
   display: flex;
   align-items: center;
   height: 32px; /* adjust tag height if needed */
+  text-align: left;
+  font-size: 16px;
 }
 
 

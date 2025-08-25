@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '../services/api'
 import { notification, Select, Spin, Tooltip } from 'antd'
 export default function ProjectsEdit() {
-  const id = useParams().id
+  const {id} = useParams()
   const {
     register,
     handleSubmit,

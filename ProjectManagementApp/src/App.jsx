@@ -15,6 +15,7 @@ import ProjectsNew from './pages/ProjectsNew'
 import EmployeeNew from './pages/EmplolyeeNew'
 import Tasks from './pages/Tasks'
 import ProjectsEdit from './pages/ProjectsEdit'
+import ProejctTaskEdit from './pages/ProjectTaskEdit'
 
 function Unauthorised() {
   return (
@@ -50,6 +51,7 @@ export default function App() {
                 <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/projects/:id" element={<ProjectsDetails />} />
                 <Route path="/tasks" element={<Tasks />} />
+                {/* <Route path="/tasks/:id" element={< ProejctTaskEdit/>} /> */}
               </Route>
             </Route>
           </Route>

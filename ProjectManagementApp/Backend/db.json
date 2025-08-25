@@ -60,6 +60,13 @@
       "email": "jack@sarvadhi.com",
       "department": "Node.js",
       "designation": "Backend developer"
+    },
+    {
+      "id": "1d4b",
+      "name": "pavan vasoya",
+      "email": "pavan.vasoya@sarvadhi.com",
+      "department": "Webflow",
+      "designation": "Employee"
     }
   ],
   "projects": [
@@ -67,7 +74,7 @@
       "name": "Website Revamp",
       "description": "Marketing site redesign",
       "employeeIds": [
-        3
+        "3"
       ],
       "id": "1"
     },
@@ -266,6 +273,18 @@
       "priority": "High",
       "status": "Pending",
       "duedate": "2025-09-04"
+    },
+    {
+      "id": "1d99",
+      "projectId": "1",
+      "title": "Role Based Authentication",
+      "description": "To Implement Role based authentication (i.e for admin and employees).",
+      "assigneeId": [
+        "34e9"
+      ],
+      "status": "todo",
+      "priority": "medium",
+      "duedate": "2025-09-05T18:30:00.000Z"
     }
   ]
 }

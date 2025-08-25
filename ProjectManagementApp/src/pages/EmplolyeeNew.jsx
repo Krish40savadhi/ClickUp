@@ -1,21 +1,22 @@
 import { useState } from 'react'
 import { api } from '../services/api'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { Tooltip,notification } from 'antd'
+import { Select, Tooltip, notification } from 'antd'
 
 export default function EmployeeNew() {
   const {
     register,
     handleSubmit,
-    formState: {errors, isSubmitting },
+    control,
+    formState: { errors, isSubmitting },
     reset,
   } = useForm({
     defaultValues: {
       name: '',
       email: '',
       department: '',
-      role: '',
+      role:undefined,
     },
     shouldFocusError: true,
   })
@@ -30,16 +31,16 @@ export default function EmployeeNew() {
         department: data.department,
         designation: data.role,
       }
-      await api.post('/employees', payload);
-      reset();
+      await api.post('/employees', payload)
+      reset()
       notification.success({
-        message:'Success',
-        description:'Employee Added Successfully!!',
-        placement:'topRight',
-        duration:3
-          });
+        message: 'Success',
+        description: 'Employee Added Successfully!!',
+        placement: 'topRight',
+        duration: 3,
+      })
 
-    //   navigate('/employees')
+      //   navigate('/employees')
     } catch (error) {
       setSubmitError(error?.message || 'Failed to Add Employee.')
     }
@@ -114,11 +115,26 @@ export default function EmployeeNew() {
             <label className="block text-left font-medium text-lg mb-2">
               Role
             </label>
-            <input
+            {/* <input
               type="text"
               placeholder="Enter Employee's role"
               {...register('role')}
               className="w-full h-[56px] border rounded-2xl border-gray-300 p-[15px] text-sm focus:outline-none focus:ring"
+            /> */}
+            <Controller
+              name="role"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  placeholder="Select Employee's role"
+                  value={field.value}
+                  onChange={field.onChange}
+                  className="custom-select w-full"
+                >
+                  <Select.Option value="Employee">Employee</Select.Option>
+                  <Select.Option value="Admin">Admin</Select.Option>
+                </Select>
+              )}
             />
           </div>
         </div>

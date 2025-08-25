@@ -1,11 +1,11 @@
 import { useForm, Controller } from 'react-hook-form'
 import { api } from '../services/api'
 import { useState, useEffect } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Select, Spin, DatePicker, Tooltip, notification } from 'antd'
 import dayjs from 'dayjs'
 
-export default function Tasks() {
+export default function ProejctTaskEdit() {
   const {
     register,
     handleSubmit,
@@ -14,7 +14,6 @@ export default function Tasks() {
     reset,
   } = useForm({
     defaultValues: {
-      selectproject: undefined,
       name: '',
       description: '',
       assigneeId: [],
@@ -27,39 +26,20 @@ export default function Tasks() {
   const [submitError, setSubmitError] = useState('')
   const [loadingEmployees, setLoadingEmployees] = useState(true)
   const [loadError, setLoadError] = useState('')
-  const [projectList, SetProjectList] = useState([])
-  const [loadingProjects, SetLoadingProjects] = useState(true)
+  const [projecttitle,SetProjecttitle]=useState('');  
 
+  const projectId = useParams().id;
   const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
-  const projectId = searchParams.get('projectid')
-  const user = localStorage.getItem('auth')
-  const userRole = JSON.parse(user).user.role
-  const userDetails = JSON.parse(user).user
 
   useEffect(() => {
     let mounted = true
+
     async function loademployees() {
       try {
         setLoadingEmployees(true)
-        SetLoadingProjects(true)
-
         const res = await api.get('/employees')
-        const ProjectList = await api.get(`/projects`)
-
-        SetProjectList(ProjectList.data)
-
-        if (userRole === 'employee') {
-          const employeesProject = ProjectList.data.filter((p) =>
-            p.employeeIds.includes(userDetails.id),
-          )
-          SetProjectList(employeesProject)
-        }
-
-        reset({
-          selectproject: ProjectList.data.find((p) => p.id == projectId).name,
-        })
-
+        const taskRes = await api.get(`/projects/${projectId}`);
+        SetProjecttitle (taskRes.data.name);
         if (!mounted) return
         SetEmployees(res.data || [])
       } catch (error) {
@@ -68,7 +48,6 @@ export default function Tasks() {
       } finally {
         if (!mounted) return
         setLoadingEmployees(false)
-        SetLoadingProjects(false)
       }
     }
     loademployees()
@@ -82,21 +61,22 @@ export default function Tasks() {
     try {
       const payload = {
         title: data.name.trim(),
+        projectId:projectId,
         description: data.description?.trim() || '',
         assigneeId: data.assignedEmployeeIds,
         status: data.status,
         priority: data.priority,
         duedate: data.dueDate,
       }
-      await api.post('/tasks', payload)
+      await api.post(`/tasks?projectId=${projectId}`, payload)  
       reset()
       notification.success({
         message: 'Success',
-        description: 'Task Added Successfully!!',
+        description: `Task Added Successfully in ${projecttitle} !!`,
         placement: 'topRight',
         duration: 3,
       })
-      // navigate('/tasks')
+      navigate(`/projects/${id}`)
     } catch (error) {
       setSubmitError(error?.message || 'Failed to Add Task')
     }
@@ -105,54 +85,14 @@ export default function Tasks() {
   return (
     <div className="main-container">
       <div className="flex justify-between mt-7">
-        <h3 className=" text-3xl font-extrabold">Add New Tasks</h3>
+        <h3 className=" text-3xl font-extrabold">Add New Task    For : {projecttitle}</h3>
+        <h3>
+           
+        </h3>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="w-full max-w-[448px] flex flex-col gap-6">
-          <div>
-            <label className="block text-left font-medium text-lg mb-2">
-              Project
-            </label>
-            {loadingProjects ? (
-              <Spin size="small" className="text-gray-500" />
-            ) : (
-              <Controller
-                name="selectproject"
-                control={control}
-                rules={{ required: 'Please select a Project' }}
-                render={({ field }) => (
-                  <Tooltip
-                    title={
-                      <span className="text-red-600">
-                        {errors.assignedEmployeeIds?.message}
-                      </span>
-                    }
-                    open={!!errors.selectproject?.message}
-                    color="#fff"
-                    placement="right"
-                  >
-                    <Select
-                      placeholder="Select Project"
-                      allowClear
-                      value={field.value}
-                      onChange={field.onChange}
-                      className="w-full custom-select"
-                      optionLabelProp="label"
-                    >
-                      {projectList.map((p) => (
-                        <Select.Option
-                          key={p.id}
-                          value={p.name}
-                          label={p.name}
-                        ></Select.Option>
-                      ))}
-                    </Select>
-                  </Tooltip>
-                )}
-              />
-            )}
-          </div>
           <div>
             <label className="block text-left font-medium text-lg mb-2">
               Task Name
@@ -263,7 +203,7 @@ export default function Tasks() {
                     allowClear
                     value={field.value}
                     onChange={field.onChange}
-                    className="custom-select w-full"
+                    className="w-full custom-select"
                   >
                     <Select.Option value="todo">To Do</Select.Option>
                     <Select.Option value="in-progress">
@@ -300,7 +240,7 @@ export default function Tasks() {
                     allowClear
                     value={field.value}
                     onChange={field.onChange}
-                    className="custom-select w-full"
+                    className="w-full custom-select"
                   >
                     <Select.Option value="high">High</Select.Option>
                     <Select.Option value="medium">Medium</Select.Option>

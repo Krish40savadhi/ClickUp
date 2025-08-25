@@ -142,7 +142,7 @@ export default function ProjectsDetails() {
           </button>
           <button
             className="bg-gray-200 rounded-2xl pr-4 pl-4 pt-1 pb-1 text-black"
-            onClick={() => navigate('/tasks')}
+            onClick={() => navigate(`/tasks?projectid=${id}`)}
           >
             Add Task
           </button>
