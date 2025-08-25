@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { api } from '../services/api'
-import { Link, Navigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import Table from '../components/Table'
 
 export default function AdminDashboard() {
