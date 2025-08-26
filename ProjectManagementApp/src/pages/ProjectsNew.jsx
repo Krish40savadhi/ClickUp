@@ -3,7 +3,17 @@ import { useForm, Controller } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../services/api'
 import { notification, Select, Spin , Tooltip } from 'antd'
+import { useAuth } from '../context/Authcontext'
+
 export default function ProjectsNew() {
+  const navigate = useNavigate()
+    const {isAuthenticated,hasRole}=useAuth();
+    if(!isAuthenticated){
+      navigate('/login')
+    }
+    if(isAuthenticated && !hasRole()){
+      navigate('/unauthorized')
+    }
   const {
     register,
     handleSubmit,
@@ -23,7 +33,6 @@ export default function ProjectsNew() {
   const [loadError, setLoadError] = useState('')
   const [submitError, setSubmitError] = useState('')
 
-  const navigate = useNavigate()
   const { Option } = Select
   useEffect(() => {
     let mounted = true

@@ -1,16 +1,19 @@
 import { useEffect, useState, useMemo } from 'react'
 import { api } from '../services/api'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Table from '../components/Table'
+import { useAuth } from '../context/Authcontext'
 
 export default function ProjectsPage() {
+  const navigate = useNavigate()
+  const { isAuthenticated,user } = useAuth()
+  if (!isAuthenticated || !user) {
+    navigate('/login')
+  }
   const [projects, setProjects] = useState([])
   const [tasks, setTasks] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const user = localStorage.getItem('auth')
-  const userRole = JSON.parse(user).user.role
-  const userDetails = JSON.parse(user)
 
   useEffect(() => {
     const load = async () => {
@@ -20,14 +23,14 @@ export default function ProjectsPage() {
           api.get('/projects'),
           api.get('/tasks'),
         ])
-        if (userRole === 'admin') {
+        if (user.role === 'admin') {
           setProjects(projRes.data)
           setTasks(taskRes.data)
         } else {
-          const userId = userDetails?.user?.id
+          const userId = user?.id
 
           const includesUser = (field) => {
-            if (field == null) return false 
+            if (field == null) return false
             const u = String(userId)
 
             if (Array.isArray(field)) {
@@ -70,7 +73,7 @@ export default function ProjectsPage() {
     <div className="p-6">
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-bold">Projects</h2>
-        {userRole === 'admin' && (
+        {user.role === 'admin' && (
           <Link
             to="/projects/new"
             className="rounded-lg bg-gray-200 text-black font-bold text-sm px-4 py-2 hover:bg-gray-400"

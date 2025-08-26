@@ -3,18 +3,21 @@ import { api } from '../services/api'
 import { useParams, useNavigate } from 'react-router-dom'
 import Table from '../components/Table'
 import { Modal, notification } from 'antd'
+import { useAuth } from '../context/Authcontext'
 
 export default function ProjectsDetails() {
+  const navigate = useNavigate()
+ const { isAuthenticated,user } = useAuth()
+  if (!isAuthenticated || !user) {
+    navigate('/login')
+  }
+  
   const { id } = useParams()
   const [project, SetProject] = useState([])
   const [task, SetTask] = useState([])
   const [assignees, SetAssignees] = useState([])
   const [filter, setFilter] = useState('Pending')
   const [showModal, setShowModal] = useState(false)
-
-  const navigate = useNavigate()
-  const authuser = localStorage.getItem('auth')
-  const user = JSON.parse(authuser).user
 
   useEffect(() => {
     async function loadData() {
@@ -114,30 +117,33 @@ export default function ProjectsDetails() {
     }
   }
 
-  function handleSave(){
-      notification.success({
-        message:'Success',
-        description:'Project Saved Successfully!!',
-        placement:'topRight',
-        duration:2
-          });
+  function handleSave() {
+    notification.success({
+      message: 'Success',
+      description: 'Project Saved Successfully!!',
+      placement: 'topRight',
+      duration: 2,
+    })
 
     setTimeout(() => {
-        navigate('/projects')
-    }, 500);      
-
+      navigate('/projects')
+    }, 500)
   }
 
   return (
     <div>
       <div className="w-full h-[105px] flex flex-row justify-between">
-        <div className="w-[503px] h-[73px] text-left">  
+        <div className="w-[503px] h-[73px] text-left">
           <h1 className="h[40px] mb-4 text-3xl">Project : {project.name}</h1>
           <p className="text-sm text-gray-400">{project.description}</p>
         </div>
         <div className="flex flex-row pt-8 pb-8  pr-4 align-middle gap-9">
-          <button className="bg-gray-200 rounded-2xl pr-4 pl-4 pt-1 pb-1 text-black "
-          onClick={()=>{navigate(`/projects/edit/${id}`)}}>
+          <button
+            className="bg-gray-200 rounded-2xl pr-4 pl-4 pt-1 pb-1 text-black "
+            onClick={() => {
+              navigate(`/projects/edit/${id}`)
+            }}
+          >
             Edit Project
           </button>
           <button
@@ -235,8 +241,8 @@ export default function ProjectsDetails() {
           className="px-4 py-2 bg-[#0D80F2] !text-white rounded-lg "
           onClick={handleSave}
         >
-            Save Changes
-            </button>
+          Save Changes
+        </button>
 
         <Modal
           title="Confirm Deletion"

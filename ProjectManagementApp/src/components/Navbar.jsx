@@ -10,6 +10,10 @@ export default function Navbar() {
   const linkClass = ({ isActive }) =>
     isActive ? 'border-b-2 border-blue-600 pb-1' : 'text-gray-700 pb-1'
 
+  function handleLogout() {
+    logout()
+    navigate('/login')
+  }
   return (
     <header className="fixed top-0 left-0 w-full bg-white shadow-sm h-[74px] flex items-center px-10 z-50">
       <div>
@@ -49,7 +53,7 @@ export default function Navbar() {
 
         <div className="flex gap-2">
           <button
-            onClick={logout}
+            onClick={handleLogout}
             className="text-lg text-black font-bold bg-gray-200 px-5 py-2.5 rounded-lg"
           >
             Logout

@@ -1,11 +1,18 @@
 import { useForm, Controller } from 'react-hook-form'
 import { api } from '../services/api'
+import { useAuth } from '../context/Authcontext'
 import { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Select, Spin, DatePicker, Tooltip, notification } from 'antd'
 import dayjs from 'dayjs'
 
+
 export default function Tasks() {
+  const navigate = useNavigate();
+  const { isAuthenticated,user } = useAuth()
+  if (!isAuthenticated || !user) {
+    navigate('/login')
+  }
   const {
     register,
     handleSubmit,
@@ -30,13 +37,9 @@ export default function Tasks() {
   const [projectList, SetProjectList] = useState([])
   const [loadingProjects, SetLoadingProjects] = useState(true)
 
-  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const projectId = searchParams.get('projectid')
-  const user = localStorage.getItem('auth')
-  const userRole = JSON.parse(user).user.role
-  const userDetails = JSON.parse(user).user
-
+  
   useEffect(() => {
     let mounted = true
     async function loademployees() {
@@ -46,14 +49,13 @@ export default function Tasks() {
 
         const res = await api.get('/employees');
         const ProjectList = await api.get(`/projects`);
-        console.log(res.data)
 
         SetProjectList(ProjectList.data)
         SetEmployees(res.data || [])
 
-        if (userRole === 'employee') {
+        if (user.role === 'employee') {
           const employeesProject = ProjectList.data.filter((p) =>
-            p.employeeIds.includes(userDetails.id),
+            p.employeeIds.includes(user.id),
           )
           SetProjectList(employeesProject)
         }

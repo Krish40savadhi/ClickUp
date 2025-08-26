@@ -1,10 +1,19 @@
 import { useState } from 'react'
+import { useAuth } from '../context/Authcontext'
 import { api } from '../services/api'
 import { useForm, Controller } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { Select, Tooltip, notification } from 'antd'
 
 export default function EmployeeNew() {
+  const navigate = useNavigate()
+    const {isAuthenticated,hasRole}=useAuth();
+    if(!isAuthenticated){
+      navigate('/login')
+    }
+    if(isAuthenticated && !hasRole()){
+      navigate('/unauthorized')
+    }
   const {
     register,
     handleSubmit,
@@ -21,7 +30,6 @@ export default function EmployeeNew() {
     shouldFocusError: true,
   })
   const [submitError, setSubmitError] = useState()
-  const navigate = useNavigate()
   const onSubmit = async (data) => {
     setSubmitError('')
     try {
